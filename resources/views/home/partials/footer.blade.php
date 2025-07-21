@@ -5,16 +5,16 @@
             <!-- Logo & About -->
             <div class="col-lg-6 col-md-12 mb-4">
                 <div class="d-flex align-items-center mb-4">
-                    <img src="{{ asset('img/logo.jpeg') }}" alt="Logo Website Edukasi Pertanian"
+                    <img src="{{ asset('img/logo.jpeg') }}" alt="Logo Website agriedu"
                         class="me-3" style="width: 70px; height: 70px; object-fit: cover; border-radius: 12px; border: 2px solid white;" />
                     <div>
-                        <h3 class="h4 fw-bold mb-1">EDUKASI PERTANIAN</h3>
+                        <h3 class="h4 fw-bold mb-1">agriedu</h3>
                         <p class="mb-0 opacity-90">Desa Sambangan</p>
                     </div>
                 </div>
                 <p class="fs-5 text-light mb-4 lh-lg">
-                    Portal edukasi pertanian untuk masyarakat Desa Sambangan. Kami berkomitmen
-                    untuk memberikan informasi dan edukasi pertanian terbaik bagi seluruh petani dan masyarakat.
+                    Portal agriedu untuk masyarakat Desa Sambangan. Kami berkomitmen
+                    untuk memberikan informasi dan agriedu terbaik bagi seluruh petani dan masyarakat.
                 </p>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white p-2 rounded-circle bg-white bg-opacity-20 hover-lift" title="Facebook">
@@ -63,7 +63,7 @@
                     <li class="mb-3">
                         <a href="{{ route('frontend.berita.index') }}" class="text-light text-decoration-none d-flex align-items-center fs-5 hover-link">
                             <i class="fas fa-bullhorn me-3"></i>
-                            Edukasi Pertanian
+                            agriedu
                         </a>
                     </li>
                     {{-- <li class="mb-2">
@@ -106,12 +106,12 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <p class="text-light mb-0">
-                    &copy; {{ date('Y') }} EDUKASI PERTANIAN Desa Sambangan. All rights reserved.
+                    &copy; {{ date('Y') }} agriedu Desa Sambangan. All rights reserved.
                 </p>
             </div>
             <div class="col-md-6 text-md-end">
                 <p class="text-light mb-0">
-                    Made with <i class="fas fa-heart text-danger"></i> by Tim Edukasi Pertanian
+                    Made with <i class="fas fa-heart text-danger"></i> by Tim agriedu
                 </p>
             </div>
         </div>
@@ -142,11 +142,11 @@
         width: 60px !important;
         height: 60px !important;
     }
-    
+
     .fs-5 {
         font-size: 1.1rem !important;
     }
-    
+
     .h5 {
         font-size: 1.2rem !important;
     }

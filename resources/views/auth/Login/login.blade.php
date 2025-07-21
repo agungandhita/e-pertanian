@@ -10,7 +10,7 @@
                     <i class="fas fa-seedling"></i>
                 </div>
                 <h1 class="visual-title">Selamat Datang</h1>
-                <p class="visual-subtitle">Kelola sistem edukasi pertanian dengan mudah dan efisien</p>
+                <p class="visual-subtitle">Kelola sistem agriedu dengan mudah dan efisien</p>
             </div>
 
             <!-- Floating Elements -->
@@ -25,7 +25,7 @@
                 <div class="auth-logo">
                     <img src="{{ asset('img/logo.jpeg') }}" alt="Logo">
                 </div>
-                <h2 class="auth-title">Admin Website Edukasi Pertanian</h2>
+                <h2 class="auth-title">Admin Website agriedu</h2>
                 <p class="auth-subtitle">Masuk ke akun Anda</p>
             </div>
 
@@ -114,6 +114,11 @@
 
                 <div class="text-center mt-3">
                     <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}">Daftar disini</a></p>
+                    <p class="mb-0 mt-2">
+                        <a href="{{ route('beranda') }}" class="text-muted">
+                            <i class="fas fa-arrow-left me-1"></i>Kembali ke Beranda
+                        </a>
+                    </p>
                 </div>
             </form>
         </div>

@@ -10,7 +10,7 @@
             <h1 class="h3 mb-0 text-gray-800 fw-bold">
                 <i class="fas fa-plus-circle text-primary me-2"></i>Tambah Multimedia Baru
             </h1>
-            <p class="text-muted mb-0">Upload dan kelola file multimedia edukasi pertanian</p>
+            <p class="text-muted mb-0">Upload dan kelola file multimedia agriedu</p>
         </div>
         <a href="{{ route('admin.multimedia.index') }}" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Kembali ke Daftar
@@ -82,7 +82,7 @@
                             <i class="fas fa-align-left text-info me-2"></i>Deskripsi Multimedia <span class="text-danger">*</span>
                         </label>
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror"
-                                  id="deskripsi" name="deskripsi" rows="5" required 
+                                  id="deskripsi" name="deskripsi" rows="5" required
                                   placeholder="Masukkan deskripsi yang jelas dan menarik tentang konten multimedia ini...">{{ old('deskripsi') }}</textarea>
                         <div class="form-text">
                             <i class="fas fa-lightbulb text-warning me-1"></i>
@@ -197,7 +197,7 @@
                             <li class="mb-0"><i class="fas fa-arrow-right text-success me-2"></i>Pilih kategori yang sesuai</li>
                         </ul>
                     </div>
-                    
+
                     <div class="alert alert-warning border-0">
                         <h6 class="alert-heading fw-bold">
                             <i class="fas fa-exclamation-triangle me-2"></i>Penting untuk Diperhatikan:
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadArea = document.querySelector('.upload-area');
     const selectedFileDiv = document.querySelector('.selected-file');
     const fileNameSpan = document.getElementById('file-name');
-    
+
     // Handle jenis media change
     jenisMediaSelect.addEventListener('change', function() {
         if (this.value === 'video') {
@@ -325,21 +325,21 @@ document.addEventListener('DOMContentLoaded', function() {
             fileRequired.style.display = 'inline';
         }
     });
-    
+
     // Handle file selection
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         const maxSize = 2 * 1024 * 1024; // 2MB in bytes
         const allowedTypes = {
             'video/mp4': 'Video MP4',
-            'video/avi': 'Video AVI', 
+            'video/avi': 'Video AVI',
             'video/quicktime': 'Video MOV',
             'image/jpeg': 'Gambar JPEG',
             'image/jpg': 'Gambar JPG',
             'image/png': 'Gambar PNG',
             'image/gif': 'Gambar GIF'
         };
-        
+
         if (file) {
             // Check file size
             if (file.size > maxSize) {
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedFileDiv.style.display = 'none';
                 return;
             }
-            
+
             // Check file type
             if (!allowedTypes[file.type]) {
                 Swal.fire({
@@ -366,12 +366,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedFileDiv.style.display = 'none';
                 return;
             }
-            
+
             // Show selected file
             const fileSize = (file.size / 1024 / 1024).toFixed(2);
             fileNameSpan.textContent = `${file.name} (${fileSize} MB)`;
             selectedFileDiv.style.display = 'block';
-            
+
             // Success notification
             Swal.fire({
                 icon: 'success',
@@ -386,32 +386,32 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedFileDiv.style.display = 'none';
         }
     });
-    
+
     // Drag and drop functionality
     uploadArea.addEventListener('dragover', function(e) {
         e.preventDefault();
         this.style.borderColor = '#0d6efd';
         this.style.backgroundColor = '#e3f2fd';
     });
-    
+
     uploadArea.addEventListener('dragleave', function(e) {
         e.preventDefault();
         this.style.borderColor = '#6c757d';
         this.style.backgroundColor = '#f8f9fa';
     });
-    
+
     uploadArea.addEventListener('drop', function(e) {
         e.preventDefault();
         this.style.borderColor = '#6c757d';
         this.style.backgroundColor = '#f8f9fa';
-        
+
         const files = e.dataTransfer.files;
         if (files.length > 0) {
             fileInput.files = files;
             fileInput.dispatchEvent(new Event('change'));
         }
     });
-    
+
     // Form validation before submit
     document.querySelector('form').addEventListener('submit', function(e) {
         const kategoriId = document.getElementById('kategori_id').value;
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const deskripsi = document.getElementById('deskripsi').value;
         const youtubeUrl = document.getElementById('youtube_url').value;
         const file = document.getElementById('file').files[0];
-        
+
         if (!kategoriId || !jenisMedia || !deskripsi.trim()) {
             e.preventDefault();
             Swal.fire({
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-        
+
         if (jenisMedia === 'video' && !youtubeUrl && !file) {
             e.preventDefault();
             Swal.fire({
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-        
+
         if (jenisMedia !== 'video' && !file) {
             e.preventDefault();
             Swal.fire({
@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-        
+
         // Show loading
         Swal.fire({
             title: 'Mengupload...',

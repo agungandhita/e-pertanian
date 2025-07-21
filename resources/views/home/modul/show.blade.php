@@ -23,7 +23,7 @@
                         </span>
                     </div>
                     <h1 class="card-title h2 fw-bold text-dark mb-3">{{ $modul->judul }}</h1>
-                    
+
                     <!-- Modul Meta -->
                     <div class="d-flex align-items-center text-muted mb-3">
                         <div class="me-4">
@@ -51,7 +51,7 @@
                                 </div>
                                 <h4 class="text-warning fw-bold mb-3">{{ $modul->judul }}</h4>
                                 <p class="text-muted mb-4">Modul pembelajaran dalam format PDF siap untuk diunduh</p>
-                                
+
                                 <!-- Download Buttons -->
                                 <div class="d-flex justify-content-center gap-3">
                                     <a href="{{ route('frontend.modul.download', $modul) }}" class="btn btn-warning btn-lg">
@@ -61,7 +61,7 @@
                                         <i class="fas fa-eye me-2"></i>Pratinjau
                                     </button>
                                 </div>
-                                
+
                                 <!-- File Info -->
                                 <div class="mt-4 text-muted small">
                                     <i class="fas fa-info-circle me-1"></i>
@@ -87,7 +87,7 @@
                         <div class="text-muted mb-4">
                             {!! nl2br(e($modul->deskripsi)) !!}
                         </div>
-                        
+
                         <!-- Learning Objectives -->
                         <div class="bg-light p-4 rounded mb-4">
                             <h6 class="fw-bold text-warning mb-3">
@@ -100,7 +100,7 @@
                                 <li>Meningkatkan produktivitas dan kualitas hasil pertanian</li>
                             </ul>
                         </div>
-                        
+
                         <!-- How to Use -->
                         <div class="border border-warning rounded p-4 mb-4">
                             <h6 class="fw-bold text-warning mb-3">
@@ -115,7 +115,7 @@
                             </ol>
                         </div>
                     </div>
-                    
+
                     <!-- Modul Footer -->
                     <hr class="my-4">
                     <div class="d-flex justify-content-between align-items-center">
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Sidebar -->
         <div class="col-lg-4">
             <!-- Modul Info -->
@@ -227,7 +227,7 @@
             </div>
             <div class="modal-body p-0">
                 @if($modul->file_path)
-                    <iframe src="{{ asset('storage/modul/files/' . $modul->file_path) }}" 
+                    <iframe src="{{ asset('storage/modul/files/' . $modul->file_path) }}"
                             width="100%" height="600px" frameborder="0">
                         Browser Anda tidak mendukung pratinjau PDF.
                     </iframe>
@@ -302,15 +302,15 @@
     .breadcrumb, .btn, .card-header, nav, .modal {
         display: none !important;
     }
-    
+
     .container {
         max-width: 100% !important;
     }
-    
+
     .col-lg-4 {
         display: none !important;
     }
-    
+
     .col-lg-8 {
         width: 100% !important;
     }

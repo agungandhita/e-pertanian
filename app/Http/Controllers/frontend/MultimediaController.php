@@ -15,20 +15,20 @@ class MultimediaController extends Controller
     public function index(Request $request)
     {
         $query = Multimedia::with('kategori')->latest();
-        
+
         // Filter berdasarkan kategori jika ada
         if ($request->has('kategori') && $request->kategori != '') {
             $query->where('kategori_id', $request->kategori);
         }
-        
+
         // Filter berdasarkan jenis media jika ada
         if ($request->has('jenis') && $request->jenis != '') {
             $query->where('jenis_media', $request->jenis);
         }
-        
+
         $multimedias = $query->paginate(12);
         $kategoris = Kategori::all();
-        
+
         return view('home.multimedia.index', compact('multimedias', 'kategoris'));
     }
 
@@ -37,6 +37,9 @@ class MultimediaController extends Controller
      */
     public function show(Multimedia $multimedia)
     {
+        // Load comments with user data
+        $multimedia->load(['comments.user:id,name,foto']);
+
         return view('home.multimedia.show', compact('multimedia'));
     }
 }

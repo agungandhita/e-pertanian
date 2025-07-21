@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Panel - Website Edukasi Pertanian')</title>
+    <title>@yield('title', 'Admin Panel - Website agriedu')</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -88,7 +88,7 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
         }
 
-        /* Custom styles for Website Edukasi Pertanian */
+        /* Custom styles for Website agriedu */
         .card {
             border: none;
             border-radius: 10px;

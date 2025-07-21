@@ -85,3 +85,13 @@ Route::prefix('')->name('frontend.')->group(function () {
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
     Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 });
+
+// Comment Routes
+Route::middleware('auth')->group(function () {
+    Route::post('/multimedia/{multimedia}/comments', [\App\Http\Controllers\frontend\CommentController::class, 'store'])->name('comments.store');
+    Route::put('/comments/{comment}', [\App\Http\Controllers\frontend\CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}', [\App\Http\Controllers\frontend\CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
+// Public comment routes
+Route::get('/multimedia/{multimedia}/comments', [\App\Http\Controllers\frontend\CommentController::class, 'index'])->name('comments.index');

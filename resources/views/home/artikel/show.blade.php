@@ -23,7 +23,7 @@
                         </span>
                     </div>
                     <h1 class="card-title h2 fw-bold text-dark mb-3">{{ $artikel->judul }}</h1>
-                    
+
                     <!-- Article Meta -->
                     <div class="d-flex align-items-center text-muted mb-3">
                         <div class="me-4">
@@ -45,7 +45,7 @@
                 @if($artikel->gambar)
                 <div class="px-4">
                     <div class="position-relative overflow-hidden rounded">
-                        <img src="{{ $artikel->gambar_url }}" alt="{{ $artikel->judul }}" 
+                        <img src="{{ $artikel->gambar_url }}" alt="{{ $artikel->judul }}"
                              class="img-fluid w-100" style="max-height: 400px; object-fit: cover;">
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="article-content">
                         {!! nl2br(e($artikel->deskripsi)) !!}
                     </div>
-                    
+
                     <!-- Article Footer -->
                     <hr class="my-4">
                     <div class="d-flex justify-content-between align-items-center">
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-6">
                             <h6 class="text-muted mb-1">Kategori</h6>
-                            <p class="mb-0 fw-bold">Edukasi Pertanian</p>
+                            <p class="mb-0 fw-bold">agriedu</p>
                         </div>
                     </div>
                 </div>
@@ -176,15 +176,15 @@
     .breadcrumb, .btn, .card-header, nav {
         display: none !important;
     }
-    
+
     .container {
         max-width: 100% !important;
     }
-    
+
     .col-lg-4 {
         display: none !important;
     }
-    
+
     .col-lg-8 {
         width: 100% !important;
     }

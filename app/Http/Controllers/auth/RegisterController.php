@@ -41,13 +41,10 @@ class RegisterController extends Controller
                 'name' => $request->nama,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'admin', // Default role untuk registrasi admin
+                'role' => 'user',
             ]);
 
-            // Auto login setelah registrasi
-            Auth::login($user);
-
-            return redirect()->route('admin.dashboard')
+            return redirect()->route('login')
                 ->with('success', 'Registrasi berhasil! Selamat datang di Admin Panel.');
 
         } catch (\Exception $e) {

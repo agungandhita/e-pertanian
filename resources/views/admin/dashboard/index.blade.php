@@ -7,7 +7,7 @@
     <!-- Header Dashboard -->
     <div class="mb-4">
         <h1 class="h2 fw-bold text-dark">Dashboard</h1>
-        <p class="text-muted">Selamat datang di panel admin Website Edukasi Pertanian</p>
+        <p class="text-muted">Selamat datang di panel admin Website agriedu</p>
     </div>
 
     <!-- Stats Cards -->

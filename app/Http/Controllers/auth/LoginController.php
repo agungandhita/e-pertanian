@@ -38,17 +38,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $user = Auth::user();
+            $request->session()->regenerate();
             
-            // Cek apakah user adalah admin
+            // Redirect berdasarkan role
             if ($user->role === 'admin') {
-                $request->session()->regenerate();
                 return redirect()->intended(route('admin.dashboard'))
                     ->with('success', 'Selamat datang kembali, ' . $user->name . '!');
             } else {
-                // Jika bukan admin, logout dan redirect ke login
-                Auth::logout();
-                return redirect()->route('login')
-                    ->with('error', 'Akses ditolak. Hanya admin yang dapat mengakses panel ini.');
+                // User biasa redirect ke beranda
+                return redirect()->intended(route('beranda'))
+                    ->with('success', 'Selamat datang, ' . $user->name . '!');
             }
         }
 

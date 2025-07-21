@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Comment;
 
 class Multimedia extends Model
 {
@@ -16,14 +19,29 @@ class Multimedia extends Model
         'deskripsi',
         'jenis_media',
         'file_path',
-        'youtube_url'
+        'youtube_url',
+        'keterangan',
+        'gambar'
     ];
 
     // Relasi dengan Kategori
-    public function kategori()
+    public function kategori(): BelongsTo
     {
         return $this->belongsTo(Kategori::class, 'kategori_id', 'kategori_id');
     }
+
+    // Relasi dengan Comments
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
+
+    // Accessor untuk total komentar
+    public function getTotalCommentsAttribute()
+    {
+        return $this->comments()->count();
+    }
+
 
     // Accessor untuk mendapatkan URL file
     public function getFileUrlAttribute()
@@ -31,9 +49,14 @@ class Multimedia extends Model
         return asset('storage/multimedia/' . $this->file_path);
     }
 
-    // Scope untuk filter berdasarkan jenis media
-    public function scopeByJenisMedia($query, $jenis)
+    // Accessor untuk mendapatkan URL gambar
+    public function getGambarUrlAttribute()
     {
-        return $query->where('jenis_media', $jenis);
+        if ($this->gambar) {
+            return asset('storage/multimedia/images/' . $this->gambar);
+        }
+        return null;
     }
+
+
 }

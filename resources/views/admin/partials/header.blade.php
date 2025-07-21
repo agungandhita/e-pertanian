@@ -14,7 +14,7 @@
                         </div>
                         <div class="d-none d-md-block">
                             <div class="fw-bold text-dark" style="font-size: 0.9rem;">Admin Panel</div>
-                            <small class="text-muted">Website Edukasi Pertanian</small>
+                            <small class="text-muted">Website agriedu</small>
                         </div>
                     </div>
                 </div>

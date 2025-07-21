@@ -1,90 +1,83 @@
 @extends('home.layouts.main')
 
 @section('container')
-<div class="container-fluid px-4 py-5">
-    <!-- Hero Section -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="hero-section bg-gradient-primary text-white rounded-4 p-5 text-center position-relative overflow-hidden">
-                <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10">
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <defs>
-                            <pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse">
-                                <circle cx="25" cy="25" r="2" fill="white" opacity="0.3"/>
-                                <circle cx="75" cy="75" r="1.5" fill="white" opacity="0.2"/>
-                                <circle cx="50" cy="10" r="1" fill="white" opacity="0.4"/>
-                                <circle cx="10" cy="60" r="2.5" fill="white" opacity="0.1"/>
-                                <circle cx="90" cy="30" r="1.8" fill="white" opacity="0.3"/>
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#grain)"/>
-                    </svg>
-                </div>
-                <div class="position-relative z-index-1">
-                    <div class="mb-4">
-                        <i class="fas fa-photo-video fa-4x mb-3 text-warning"></i>
-                    </div>
-                    <h1 class="display-3 fw-bold mb-4">Multimedia Edukasi Pertanian</h1>
-                    <p class="lead mb-4 fs-5">Jelajahi koleksi lengkap video, audio, dan gambar edukatif seputar dunia pertanian modern untuk meningkatkan pengetahuan dan keterampilan bertani Anda</p>
-                    <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        <span class="badge bg-light text-dark px-3 py-2 fs-6">
-                            <i class="fas fa-play me-2"></i>Video Edukasi
-                        </span>
-                        <span class="badge bg-light text-dark px-3 py-2 fs-6">
-                            <i class="fas fa-volume-up me-2"></i>Audio Learning
-                        </span>
-                        <span class="badge bg-light text-dark px-3 py-2 fs-6">
-                            <i class="fas fa-image me-2"></i>Infografis
-                        </span>
+<!-- Hero Section -->
+<div class="hero-section position-relative overflow-hidden">
+    <div class="hero-bg"></div>
+    <div class="container-fluid px-0">
+        <div class="row g-0 min-vh-100 align-items-center">
+            <!-- Content -->
+            <div class="col-lg-6 px-4 px-lg-5">
+                <div class="hero-content text-white">
+                    <span class="badge bg-light text-primary px-4 py-2 rounded-pill mb-4 fs-6">
+                        <i class="fas fa-photo-video me-2"></i>Portal Multimedia agriedu
+                    </span>
+
+                    <h1 class="display-3 fw-bold mb-4 lh-sm">
+                        Jelajahi Dunia
+                        <span class="text-warning">Multimedia</span>
+                        Pertanian
+                    </h1>
+
+                    <p class="fs-5 mb-5 opacity-90">
+                        Temukan koleksi lengkap video, audio, dan gambar edukatif seputar dunia pertanian modern untuk meningkatkan pengetahuan dan keterampilan bertani Anda.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3">
+                        <button class="btn btn-warning btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="video">
+                            <i class="fas fa-play me-2"></i>Video
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="audio">
+                            <i class="fas fa-volume-up me-2"></i>Audio
+                        </button>
+                        <button class="btn btn-light btn-lg px-4 py-3 rounded-pill text-primary filter-btn" data-filter="gambar">
+                            <i class="fas fa-image me-2"></i>Gambar
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="infografis">
+                            <i class="fas fa-chart-bar me-2"></i>Infografis
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Filter Section -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="card border-0 shadow-lg rounded-4">
-                <div class="card-body p-4">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 mb-3 mb-lg-0">
-                            <h5 class="mb-0 fw-bold text-dark">
-                                <i class="fas fa-filter me-2 text-primary"></i>Filter Konten:
-                            </h5>
-                            <small class="text-muted">Pilih jenis media yang ingin ditampilkan</small>
+            <!-- Stats -->
+            <div class="col-lg-6">
+                <div class="stats-grid p-4 p-lg-5">
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-icon bg-danger">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'video')->count() }}</h3>
+                                <p class="stat-label">Video</p>
+                            </div>
                         </div>
-                        <div class="col-lg-9">
-                            <div class="filter-buttons d-flex gap-2 flex-wrap justify-content-lg-end">
-                                <input type="radio" class="btn-check" name="filter" id="semua" autocomplete="off" checked>
-                                <label class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" for="semua">
-                                    <i class="fas fa-th-large me-2"></i>Semua Media
-                                    <span class="badge bg-primary ms-2">{{ $multimedias->total() }}</span>
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="filter" id="video" autocomplete="off">
-                                <label class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold" for="video">
-                                    <i class="fas fa-play me-2"></i>Video
-                                    <span class="badge bg-danger ms-2">{{ $multimedias->where('jenis_media', 'video')->count() }}</span>
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="filter" id="audio" autocomplete="off">
-                                <label class="btn btn-outline-info rounded-pill px-4 py-2 fw-semibold" for="audio">
-                                    <i class="fas fa-volume-up me-2"></i>Audio
-                                    <span class="badge bg-info ms-2">{{ $multimedias->where('jenis_media', 'audio')->count() }}</span>
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="filter" id="gambar" autocomplete="off">
-                                <label class="btn btn-outline-success rounded-pill px-4 py-2 fw-semibold" for="gambar">
-                                    <i class="fas fa-image me-2"></i>Gambar
-                                    <span class="badge bg-success ms-2">{{ $multimedias->where('jenis_media', 'gambar')->count() }}</span>
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="filter" id="infografis" autocomplete="off">
-                                <label class="btn btn-outline-warning rounded-pill px-4 py-2 fw-semibold" for="infografis">
-                                    <i class="fas fa-chart-bar me-2"></i>Infografis
-                                    <span class="badge bg-warning ms-2">{{ $multimedias->where('jenis_media', 'infografis')->count() }}</span>
-                                </label>
+                        <div class="col-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-icon bg-info">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'audio')->count() }}</h3>
+                                <p class="stat-label">Audio</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-icon bg-success">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'gambar')->count() }}</h3>
+                                <p class="stat-label">Gambar</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-icon bg-warning">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'infografis')->count() }}</h3>
+                                <p class="stat-label">Infografis</p>
                             </div>
                         </div>
                     </div>
@@ -92,6 +85,45 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Content Section -->
+<div class="content-section py-5">
+    <div class="container-fluid px-4">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-dark mb-3">Koleksi Multimedia</h2>
+            <p class="lead text-muted">Jelajahi berbagai konten multimedia edukatif untuk pembelajaran pertanian</p>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="content-card">
+                    <div class="content-header bg-primary">
+                        <h5 class="mb-0 text-white"><i class="fas fa-filter me-2"></i>Filter Konten</h5>
+                    </div>
+                    <div class="content-body">
+                        <div class="filter-buttons d-flex gap-2 flex-wrap justify-content-center">
+                            <input type="radio" class="btn-check" name="filter" id="semua" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" for="semua">
+                                <i class="fas fa-th-large me-2"></i>Semua Media
+                                <span class="badge bg-primary ms-2">{{ $multimedias->total() }}</span>
+                            </label>
+                            <input type="radio" class="btn-check" name="filter" id="video" autocomplete="off">
+                            <label class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold" for="video">
+                                <i class="fas fa-play me-2"></i>Video
+                                <span class="badge bg-danger ms-2">{{ $multimedias->where('jenis_media', 'video')->count() }}</span>
+                            </label>
+                            <input type="radio" class="btn-check" name="filter" id="gambar" autocomplete="off">
+                            <label class="btn btn-outline-success rounded-pill px-4 py-2 fw-semibold" for="gambar">
+                                <i class="fas fa-image me-2"></i>Gambar
+                                <span class="badge bg-success ms-2">{{ $multimedias->where('jenis_media', 'gambar')->count() }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- Multimedia Grid -->
     @if($multimedias->count() > 0)
@@ -110,10 +142,10 @@
                                             $youtube_id = $matches[1];
                                         }
                                     @endphp
-                                    <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}" 
-                                            title="{{ $multimedia->deskripsi }}" 
-                                            frameborder="0" 
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}"
+                                            title="{{ $multimedia->deskripsi }}"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen
                                             class="rounded-top">
                                     </iframe>
@@ -148,38 +180,16 @@
                                     </div>
                                 </div>
                             @endif
-                        @elseif($multimedia->jenis_media == 'audio')
-                            <div class="audio-preview bg-gradient-info d-flex align-items-center justify-content-center" style="height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                <div class="text-center text-white">
-                                    <div class="audio-icon-container mb-4">
-                                        <i class="fas fa-music fa-4x opacity-75"></i>
-                                        <div class="audio-waves mt-3">
-                                            <span></span><span></span><span></span><span></span><span></span>
-                                        </div>
-                                    </div>
-                                    @if($multimedia->file_path)
-                                        <audio controls class="w-100 mt-3" style="max-width: 280px;">
-                                            <source src="{{ asset('storage/' . $multimedia->file_path) }}" type="audio/mpeg">
-                                            Browser Anda tidak mendukung tag audio.
-                                        </audio>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge bg-info bg-gradient px-3 py-2 rounded-pill shadow">
-                                    <i class="fas fa-volume-up me-2"></i>Audio
-                                </span>
-                            </div>
                         @elseif($multimedia->jenis_media == 'gambar')
                             <div class="ratio ratio-16x9 image-container">
                                 @if($multimedia->gambar)
-                                    <img src="{{ $multimedia->gambar_url }}" 
-                                         class="card-img-top object-fit-cover hover-zoom" 
+                                    <img src="{{ $multimedia->gambar_url }}"
+                                         class="card-img-top object-fit-cover hover-zoom"
                                          alt="{{ $multimedia->deskripsi }}"
                                          loading="lazy">
                                 @elseif($multimedia->file_path)
-                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}" 
-                                         class="card-img-top object-fit-cover hover-zoom" 
+                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}"
+                                         class="card-img-top object-fit-cover hover-zoom"
                                          alt="{{ $multimedia->deskripsi }}"
                                          loading="lazy">
                                 @else
@@ -204,8 +214,8 @@
                         @elseif($multimedia->jenis_media == 'infografis')
                             <div class="ratio ratio-16x9 infografis-container">
                                 @if($multimedia->file_path)
-                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}" 
-                                         class="card-img-top object-fit-cover" 
+                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}"
+                                         class="card-img-top object-fit-cover"
                                          alt="{{ $multimedia->deskripsi }}"
                                          loading="lazy">
                                 @else
@@ -242,7 +252,7 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <!-- Card Content -->
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start mb-3">
@@ -260,9 +270,9 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <p class="card-text text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">{{ Str::limit($multimedia->deskripsi, 85) }}</p>
-                        
+
                         <div class="multimedia-meta mb-3">
                             <div class="row g-2">
                                 <div class="col-6">
@@ -279,7 +289,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="d-flex gap-2">
                             <a href="{{ route('frontend.multimedia.show', $multimedia) }}" class="btn btn-primary btn-sm flex-grow-1 rounded-pill fw-semibold">
                                 <i class="fas fa-play me-2"></i>Lihat Konten
@@ -293,7 +303,7 @@
             </div>
             @endforeach
         </div>
-        
+
         <!-- Pagination -->
         @if($multimedias->hasPages())
             <div class="row mt-5">
@@ -311,7 +321,7 @@
                         <i class="fas fa-photo-video fa-5x text-success opacity-50"></i>
                     </div>
                     <h3 class="mb-3 fw-bold">Belum Ada Konten Multimedia</h3>
-                    <p class="lead mb-4">Konten multimedia edukasi pertanian akan segera hadir untuk membantu meningkatkan pengetahuan bertani Anda. Silakan kembali lagi nanti atau jelajahi konten lainnya.</p>
+                    <p class="lead mb-4">Konten multimedia agriedu akan segera hadir untuk membantu meningkatkan pengetahuan bertani Anda. Silakan kembali lagi nanti atau jelajahi konten lainnya.</p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
                         <a href="{{ url('/') }}" class="btn btn-success btn-lg">
                             <i class="fas fa-home me-2"></i>Kembali ke Beranda
@@ -328,190 +338,230 @@
 
 <!-- Custom Styles -->
 <style>
-.hover-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #e9ecef;
+.hero-section {
+    min-height: 100vh;
+    position: relative;
 }
 
-.hover-card:hover {
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 50%, #004085 100%);
+    z-index: -1;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>');
+    background-size: 50px 50px;
+}
+
+.stats-grid {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2rem 1rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
 }
 
-.card-title {
-    color: #1a1a1a !important;
-    line-height: 1.5;
-    font-size: 1.2rem;
-    font-weight: 600;
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 1.5rem;
 }
 
-.card-body {
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.stat-label {
+    color: #666;
+    margin: 0;
+    font-weight: 500;
+}
+
+.content-section {
+    background: #f8f9fa;
+}
+
+.content-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+}
+
+.content-header {
+    padding: 1rem 1.5rem;
+}
+
+.content-body {
     padding: 1.5rem;
 }
 
-.text-muted {
-    color: #495057 !important;
-    font-size: 0.95rem;
+/* Enhanced multimedia card styling */
+.multimedia-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-.btn-success {
-    background: #28a745;
-    border: 2px solid #28a745;
+.multimedia-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+}
+
+/* Media preview enhancements */
+.multimedia-preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.multimedia-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+    z-index: 1;
+}
+
+.multimedia-card:hover .multimedia-preview::before {
+    transform: translateX(100%);
+}
+
+/* Audio wave animation */
+.audio-waves {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.audio-waves span {
+    width: 3px;
+    height: 20px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 2px;
+    animation: audioWave 1.5s ease-in-out infinite;
+}
+
+.audio-waves span:nth-child(2) { animation-delay: 0.1s; }
+.audio-waves span:nth-child(3) { animation-delay: 0.2s; }
+.audio-waves span:nth-child(4) { animation-delay: 0.3s; }
+.audio-waves span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes audioWave {
+    0%, 100% { height: 20px; }
+    50% { height: 35px; }
+}
+
+/* Image overlay effects */
+.image-overlay, .infografis-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover .image-overlay,
+.infografis-container:hover .infografis-overlay {
+    opacity: 1;
+}
+
+.hover-zoom {
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover .hover-zoom {
+    transform: scale(1.05);
+}
+
+/* Enhanced filter buttons */
+.filter-buttons .btn {
+    transition: all 0.3s ease;
+    border-width: 2px;
     font-weight: 600;
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
+}
+
+.filter-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.filter-buttons .btn-check:checked + .btn {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn {
     transition: all 0.3s ease;
 }
 
-.btn-success:hover {
-    background: #218838;
-    border-color: #218838;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.display-4 {
-    color: #1a1a1a !important;
-    font-weight: 700;
-}
-
-.lead {
-    color: #495057 !important;
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-.border-success {
-    border-color: #28a745 !important;
-}
-
-.btn-outline-success {
-    color: #28a745;
-    border-color: #28a745;
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
-}
-
-.btn-outline-success:checked + label,
-.btn-outline-success.active {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
-}
-
-.btn-outline-success:hover {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
-}
-
-.badge {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.8rem;
-    font-weight: 600;
-}
-
-/* Responsive improvements */
 @media (max-width: 768px) {
-    .display-4 {
+    .hero-section {
+        min-height: auto;
+        padding: 3rem 0;
+    }
+
+    .display-3 {
         font-size: 2.5rem;
     }
-    
-    .lead {
-        font-size: 1rem;
+
+    .stats-grid {
+        margin-top: 2rem;
     }
-    
-    .card-title {
-        font-size: 1.1rem;
+
+    .stat-card {
+        padding: 1.5rem 1rem;
     }
-    
-    .btn-group .btn {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.9rem;
+
+    .stat-number {
+        font-size: 2rem;
     }
-}
-
-/* Better contrast for older users */
-.card {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.card:hover {
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-h6 {
-    color: #1a1a1a !important;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-h5 {
-    color: #1a1a1a !important;
-    font-weight: 700;
-}
-
-h3 {
-    color: #1a1a1a !important;
-}
-
-.btn-lg {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.btn-outline-success.btn-lg {
-    border-width: 2px;
-}
-
-.btn-outline-success.btn-lg:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-}
-
-/* Improve filter button responsiveness */
-@media (max-width: 576px) {
-    .btn-group {
-        flex-direction: column;
-    }
-    
-    .btn-group .btn {
-        border-radius: 0.375rem !important;
-        margin-bottom: 0.5rem;
-    }
-    
-    .btn-group .btn:last-child {
-        margin-bottom: 0;
-    }
-}
-
-/* Better spacing for cards */
-.multimedia-item {
-    margin-bottom: 2rem;
-}
-
-/* Improve pagination styling */
-.pagination {
-    justify-content: center;
-}
-
-.pagination .page-link {
-    color: #28a745;
-    border-color: #28a745;
-    padding: 0.75rem 1rem;
-    font-weight: 600;
-}
-
-.pagination .page-link:hover {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #28a745;
-    border-color: #28a745;
 }
 </style>
 
@@ -520,11 +570,11 @@ h3 {
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('input[name="filter"]');
     const multimediaItems = document.querySelectorAll('.multimedia-item');
-    
+
     filterButtons.forEach(button => {
         button.addEventListener('change', function() {
             const filterValue = this.id;
-            
+
             multimediaItems.forEach(item => {
                 if (filterValue === 'semua' || item.dataset.type === filterValue) {
                     item.style.display = 'block';

@@ -5,7 +5,7 @@
     <!-- Header Section -->
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <h1 class="display-4 fw-bold text-primary mb-3">Artikel Edukasi Pertanian</h1>
+            <h1 class="display-4 fw-bold text-primary mb-3">Artikel agriedu</h1>
             <p class="lead text-muted">Temukan berbagai artikel edukatif seputar dunia pertanian dan teknologi terkini</p>
             <hr class="w-25 mx-auto border-primary border-3">
         </div>
@@ -20,7 +20,7 @@
                     <!-- Article Image -->
                     <div class="position-relative overflow-hidden">
                         @if($artikel->gambar)
-                            <img src="{{ $artikel->gambar_url }}" class="card-img-top" alt="{{ $artikel->judul }}" 
+                            <img src="{{ $artikel->gambar_url }}" class="card-img-top" alt="{{ $artikel->judul }}"
                                  style="height: 200px; object-fit: cover; transition: transform 0.3s ease;">
                         @else
                             <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
@@ -34,14 +34,14 @@
                             </span>
                         </div>
                     </div>
-                    
+
                     <!-- Article Content -->
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold mb-3">{{ $artikel->judul }}</h5>
                         <p class="card-text text-muted flex-grow-1">
                             {{ Str::limit($artikel->deskripsi, 120) }}
                         </p>
-                        
+
                         <!-- Article Meta -->
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <small class="text-muted">
@@ -57,7 +57,7 @@
             </div>
             @endforeach
         </div>
-        
+
         <!-- Pagination -->
         @if($artikels->hasPages())
             <div class="row mt-5">
@@ -75,7 +75,7 @@
                         <i class="fas fa-newspaper fa-5x text-muted"></i>
                     </div>
                     <h3 class="text-muted mb-3">Belum Ada Artikel</h3>
-                    <p class="text-muted mb-4">Artikel edukasi pertanian akan segera hadir. Silakan kembali lagi nanti.</p>
+                    <p class="text-muted mb-4">Artikel agriedu akan segera hadir. Silakan kembali lagi nanti.</p>
                     <a href="{{ url('/') }}" class="btn btn-primary">
                         <i class="fas fa-home me-2"></i>Kembali ke Beranda
                     </a>
