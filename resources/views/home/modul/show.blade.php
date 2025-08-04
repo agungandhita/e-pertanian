@@ -34,10 +34,17 @@
                             <i class="fas fa-clock me-2"></i>
                             <span>{{ $modul->created_at->diffForHumans() }}</span>
                         </div>
+                        @if($modul->kategori)
+                        <div>
+                            <i class="fas fa-tag me-2"></i>
+                            <span>{{ $modul->kategori->nama }}</span>
+                        </div>
+                        @else
                         <div>
                             <i class="fas fa-book me-2"></i>
                             <span>Modul Pembelajaran</span>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -46,9 +53,16 @@
                     <div class="position-relative overflow-hidden rounded bg-warning bg-opacity-10">
                         @if($modul->file_path)
                             <div class="text-center py-5">
-                                <div class="mb-4">
-                                    <i class="fas fa-file-pdf fa-5x text-warning"></i>
-                                </div>
+                                @if($modul->cover)
+                                    <div class="mb-4">
+                                        <img src="{{ $modul->cover_url }}" alt="{{ $modul->judul }}" 
+                                             class="img-fluid rounded" style="max-height: 200px; object-fit: cover;">
+                                    </div>
+                                @else
+                                    <div class="mb-4">
+                                        <i class="fas fa-file-pdf fa-5x text-warning"></i>
+                                    </div>
+                                @endif
                                 <h4 class="text-warning fw-bold mb-3">{{ $modul->judul }}</h4>
                                 <p class="text-muted mb-4">Modul pembelajaran dalam format PDF siap untuk diunduh</p>
 
@@ -87,6 +101,13 @@
                         <div class="text-muted mb-4">
                             {!! nl2br(e($modul->deskripsi)) !!}
                         </div>
+
+                        @if($modul->konten)
+                        <h5 class="fw-bold mb-3">Konten Pembelajaran</h5>
+                        <div class="text-muted mb-4">
+                            {!! nl2br(e($modul->konten)) !!}
+                        </div>
+                        @endif
 
                         <!-- Learning Objectives -->
                         <div class="bg-light p-4 rounded mb-4">

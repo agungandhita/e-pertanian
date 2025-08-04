@@ -23,39 +23,21 @@
                 @csrf
                 @method('PUT')
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
-                                <select class="form-select @error('kategori_id') is-invalid @enderror"
-                                        id="kategori_id" name="kategori_id" required>
-                                    <option value="">Pilih Kategori</option>
-                                    @foreach($kategoris as $kategori)
-                                        <option value="{{ $kategori->kategori_id }}" 
-                                                {{ (old('kategori_id') ?? $multimedia->kategori_id) == $kategori->kategori_id ? 'selected' : '' }}>
-                                            {{ $kategori->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('kategori_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="jenis_media" class="form-label">Jenis Media <span class="text-danger">*</span></label>
-                                <select class="form-select @error('jenis_media') is-invalid @enderror"
-                                        id="jenis_media" name="jenis_media" required>
-                                    <option value="">Pilih Jenis Media</option>
-                                    <option value="video" {{ (old('jenis_media') ?? $multimedia->jenis_media) == 'video' ? 'selected' : '' }}>Video</option>
-                                    <option value="gambar" {{ (old('jenis_media') ?? $multimedia->jenis_media) == 'gambar' ? 'selected' : '' }}>Gambar</option>
-                                </select>
-                                @error('jenis_media')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
+                        <select class="form-select @error('kategori_id') is-invalid @enderror"
+                                id="kategori_id" name="kategori_id" required>
+                            <option value="">Pilih Kategori</option>
+                            @foreach($kategoris as $kategori)
+                                <option value="{{ $kategori->kategori_id }}"
+                                        {{ (old('kategori_id') ?? $multimedia->kategori_id) == $kategori->kategori_id ? 'selected' : '' }}>
+                                    {{ $kategori->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('kategori_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
@@ -67,34 +49,16 @@
                         @enderror
                     </div>
 
-                    <!-- YouTube URL untuk Video -->
-                    <div class="mb-3" id="youtube-section" style="display: {{ (old('jenis_media') ?? $multimedia->jenis_media) == 'video' ? 'block' : 'none' }};">
-                        <label for="youtube_url" class="form-label">URL YouTube</label>
+                    <!-- YouTube URL -->
+                    <div class="mb-3">
+                        <label for="youtube_url" class="form-label">URL YouTube <span class="text-danger">*</span></label>
                         <input type="url" class="form-control @error('youtube_url') is-invalid @enderror"
-                               id="youtube_url" name="youtube_url" value="{{ old('youtube_url') ?? $multimedia->youtube_url }}"
+                               id="youtube_url" name="youtube_url" value="{{ old('youtube_url') ?? $multimedia->youtube_url }}" required
                                placeholder="https://www.youtube.com/watch?v=...">
                         <div class="form-text">
-                            Masukkan URL YouTube yang valid. Jika diisi, file video tidak perlu diupload.
+                            Masukkan URL YouTube yang valid untuk video multimedia.
                         </div>
                         @error('youtube_url')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- File Upload -->
-                    <div class="mb-3" id="file-section">
-                        <label for="file" class="form-label">File Multimedia</label>
-                        <input type="file" class="form-control @error('file') is-invalid @enderror"
-                               id="file" name="file">
-                        <div class="form-text" id="file-help">
-                            <strong>Format yang didukung:</strong><br>
-                            • Video: MP4, AVI, MOV (Maks. 2MB)<br>
-                            • Audio: MP3, WAV, OGG (Maks. 2MB)<br>
-                            • Gambar: JPG, PNG, GIF (Maks. 2MB)<br>
-                            • Infografis: JPG, PNG, PDF (Maks. 2MB)<br>
-                            <em>Kosongkan jika tidak ingin mengubah file</em>
-                        </div>
-                        @error('file')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -113,40 +77,38 @@
     </div>
 
     <div class="col-lg-4">
-        <!-- Preview File Saat Ini -->
+        <!-- Preview YouTube Video -->
         <div class="card shadow-sm mb-3">
             <div class="card-header">
-                <h5 class="mb-0">File Saat Ini</h5>
+                <h5 class="mb-0">Preview Video</h5>
             </div>
             <div class="card-body text-center">
-                @if($multimedia->file_path)
-                    @if($multimedia->jenis_media == 'gambar' || $multimedia->jenis_media == 'infografis')
-                        <img src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}"
-                             alt="{{ $multimedia->deskripsi }}"
-                             class="img-fluid rounded mb-2"
-                             style="max-height: 200px;">
-                    @elseif($multimedia->jenis_media == 'video')
-                        <video controls class="w-100 rounded mb-2" style="max-height: 200px;">
-                            <source src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}" type="video/mp4">
-                            Browser Anda tidak mendukung video.
-                        </video>
-                    @elseif($multimedia->jenis_media == 'audio')
-                        <div class="bg-success rounded d-flex align-items-center justify-content-center text-white mb-2"
-                             style="height: 100px;">
-                            <i class="fas fa-volume-up fa-3x"></i>
+                @if($multimedia->youtube_url)
+                    @php
+                        $videoId = null;
+                        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $multimedia->youtube_url, $matches)) {
+                            $videoId = $matches[1];
+                        }
+                    @endphp
+                    @if($videoId)
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" 
+                                    title="YouTube video" 
+                                    allowfullscreen></iframe>
                         </div>
-                        <audio controls class="w-100">
-                            <source src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}" type="audio/mpeg">
-                            Browser Anda tidak mendukung audio.
-                        </audio>
+                    @else
+                        <div class="bg-danger rounded d-flex align-items-center justify-content-center text-white"
+                             style="height: 100px;">
+                            <i class="fas fa-exclamation-triangle fa-3x"></i>
+                        </div>
+                        <p class="text-muted mt-2">URL YouTube tidak valid</p>
                     @endif
-                    <p class="text-muted small mb-0">{{ $multimedia->file_path }}</p>
                 @else
                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center"
                          style="height: 100px;">
-                        <i class="fas fa-file fa-3x text-white"></i>
+                        <i class="fab fa-youtube fa-3x text-white"></i>
                     </div>
-                    <p class="text-muted">Tidak ada file</p>
+                    <p class="text-muted">Belum ada URL YouTube</p>
                 @endif
             </div>
         </div>
@@ -161,20 +123,6 @@
                     <tr>
                         <td><strong>Kategori:</strong></td>
                         <td>{{ $multimedia->kategori->nama ?? 'Tidak ada kategori' }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Jenis Media:</strong></td>
-                        <td>
-                            @if($multimedia->jenis_media == 'video')
-                                <span class="badge bg-danger">Video</span>
-                            @elseif($multimedia->jenis_media == 'audio')
-                                <span class="badge bg-success">Audio</span>
-                            @elseif($multimedia->jenis_media == 'gambar')
-                                <span class="badge bg-info">Gambar</span>
-                            @elseif($multimedia->jenis_media == 'infografis')
-                                <span class="badge bg-warning">Infografis</span>
-                            @endif
-                        </td>
                     </tr>
                     <tr>
                         <td><strong>Dibuat:</strong></td>
@@ -193,39 +141,31 @@
 
 @push('scripts')
 <script>
-// Toggle YouTube section based on media type
-document.getElementById('jenis_media').addEventListener('change', function() {
-    const jenisMedia = this.value;
-    const youtubeSection = document.getElementById('youtube-section');
-    const youtubeInput = document.getElementById('youtube_url');
-    
-    if (jenisMedia === 'video') {
-        youtubeSection.style.display = 'block';
-    } else {
-        youtubeSection.style.display = 'none';
-        youtubeInput.value = '';
-    }
-});
-
-// File validation
-document.getElementById('file').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-    const allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    
-    if (file) {
-        if (file.size > maxSize) {
-            alert('Ukuran file terlalu besar! Maksimal 2MB.');
-            e.target.value = '';
+$(document).ready(function() {
+    // Validasi form sebelum submit
+    $('form').submit(function(e) {
+        const kategoriId = $('#kategori_id').val();
+        const deskripsi = $('#deskripsi').val().trim();
+        const youtubeUrl = $('#youtube_url').val().trim();
+        
+        if (!kategoriId) {
+            alert('Silakan pilih kategori!');
+            e.preventDefault();
             return;
         }
         
-        if (!allowedTypes.includes(file.type)) {
-            alert('Format file tidak didukung!');
-            e.target.value = '';
+        if (!deskripsi) {
+            alert('Silakan isi deskripsi!');
+            e.preventDefault();
             return;
         }
-    }
+        
+        if (!youtubeUrl) {
+            alert('Silakan isi URL YouTube!');
+            e.preventDefault();
+            return;
+        }
+    });
 });
 </script>
 @endpush

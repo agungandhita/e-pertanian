@@ -17,6 +17,12 @@ class Berita extends Model
         'gambar'
     ];
 
+    // Accessor untuk deskripsi (alias untuk isi)
+    public function getDeskripsiAttribute()
+    {
+        return $this->isi;
+    }
+
     // Accessor untuk mendapatkan URL gambar
     public function getGambarUrlAttribute()
     {

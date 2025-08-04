@@ -54,7 +54,7 @@
                 <!-- News Body -->
                 <div class="card-body px-4 pb-4">
                     <div class="news-content">
-                        {!! nl2br(e($berita->deskripsi)) !!}
+                        {!! nl2br(e($berita->isi)) !!}
                     </div>
                     
                     <!-- News Footer -->

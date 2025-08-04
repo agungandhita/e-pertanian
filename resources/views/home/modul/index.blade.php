@@ -47,12 +47,17 @@
                 <div class="card h-100 shadow-sm border-0 hover-card">
                     <!-- PDF Preview -->
                     <div class="position-relative overflow-hidden bg-warning bg-opacity-10" style="height: 200px;">
-                        <div class="d-flex align-items-center justify-content-center h-100">
-                            <div class="text-center">
-                                <i class="fas fa-file-pdf fa-4x text-warning mb-3"></i>
-                                <h6 class="text-warning fw-bold">Modul PDF</h6>
+                        @if($modul->cover)
+                            <img src="{{ $modul->cover_url }}" alt="{{ $modul->judul }}" 
+                                 class="img-fluid w-100 h-100" style="object-fit: cover;">
+                        @else
+                            <div class="d-flex align-items-center justify-content-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-file-pdf fa-4x text-warning mb-3"></i>
+                                    <h6 class="text-warning fw-bold">Modul PDF</h6>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         
                         <!-- File Size Badge -->
                         @if($modul->file_path)
@@ -66,6 +71,13 @@
                     
                     <!-- Card Content -->
                     <div class="card-body d-flex flex-column">
+                        @if($modul->kategori)
+                            <div class="mb-2">
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-tag me-1"></i>{{ $modul->kategori->nama }}
+                                </span>
+                            </div>
+                        @endif
                         <h5 class="card-title fw-bold mb-3">{{ $modul->judul }}</h5>
                         <p class="card-text text-muted flex-grow-1">
                             {{ Str::limit($modul->deskripsi, 100) }}

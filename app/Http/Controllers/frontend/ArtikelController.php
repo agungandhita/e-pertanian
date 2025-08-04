@@ -13,7 +13,7 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        $artikels = Artikel::latest()->paginate(9);
+        $artikels = Artikel::with('kategori')->latest()->paginate(9);
         return view('home.artikel.index', compact('artikels'));
     }
 
@@ -22,6 +22,7 @@ class ArtikelController extends Controller
      */
     public function show(Artikel $artikel)
     {
+        $artikel->load('kategori');
         return view('home.artikel.show', compact('artikel'));
     }
 }

@@ -17,8 +17,6 @@ class Multimedia extends Model
     protected $fillable = [
         'kategori_id',
         'deskripsi',
-        'jenis_media',
-        'file_path',
         'youtube_url',
         'keterangan',
         'gambar'
@@ -42,12 +40,6 @@ class Multimedia extends Model
         return $this->comments()->count();
     }
 
-
-    // Accessor untuk mendapatkan URL file
-    public function getFileUrlAttribute()
-    {
-        return asset('storage/multimedia/' . $this->file_path);
-    }
 
     // Accessor untuk mendapatkan URL gambar
     public function getGambarUrlAttribute()

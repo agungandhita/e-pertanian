@@ -27,7 +27,6 @@
                             <th>No</th>
                             <th>Preview</th>
                             <th>Kategori</th>
-                            <th>Jenis Media</th>
                             <th>Deskripsi</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
@@ -38,49 +37,21 @@
                         <tr>
                             <td>{{ $multimedia->firstItem() + $index }}</td>
                             <td>
-                                @if($item->youtube_url && $item->jenis_media == 'video')
+                                @if($item->youtube_url)
                                     <div class="bg-danger rounded d-flex align-items-center justify-content-center text-white position-relative"
                                          style="width: 60px; height: 40px;">
                                         <i class="fab fa-youtube"></i>
                                         <small class="position-absolute" style="bottom: -2px; right: -2px; font-size: 8px;">YT</small>
                                     </div>
-                                @elseif($item->file_path)
-                                    @if($item->jenis_media == 'gambar' || $item->jenis_media == 'infografis')
-                                        <img src="{{ asset('storage/multimedia/' . $item->file_path) }}"
-                                             alt="{{ $item->deskripsi }}"
-                                             class="rounded"
-                                             width="60" height="40" style="object-fit: cover;">
-                                    @elseif($item->jenis_media == 'video')
-                                        <div class="bg-danger rounded d-flex align-items-center justify-content-center text-white"
-                                             style="width: 60px; height: 40px;">
-                                            <i class="fas fa-play"></i>
-                                        </div>
-                                    @elseif($item->jenis_media == 'audio')
-                                        <div class="bg-success rounded d-flex align-items-center justify-content-center text-white"
-                                             style="width: 60px; height: 40px;">
-                                            <i class="fas fa-volume-up"></i>
-                                        </div>
-                                    @endif
                                 @else
                                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center"
                                          style="width: 60px; height: 40px;">
-                                        <i class="fas fa-file text-white"></i>
+                                        <i class="fab fa-youtube text-white"></i>
                                     </div>
                                 @endif
                             </td>
                             <td>
                                 <span class="badge bg-primary">{{ $item->kategori->nama ?? 'Tidak ada kategori' }}</span>
-                            </td>
-                            <td>
-                                @if($item->jenis_media == 'video')
-                                    <span class="badge bg-danger">Video</span>
-                                @elseif($item->jenis_media == 'audio')
-                                    <span class="badge bg-success">Audio</span>
-                                @elseif($item->jenis_media == 'gambar')
-                                    <span class="badge bg-info">Gambar</span>
-                                @elseif($item->jenis_media == 'infografis')
-                                    <span class="badge bg-warning">Infografis</span>
-                                @endif
                             </td>
                             <td>{{ Str::limit($item->deskripsi, 50) }}</td>
                             <td>

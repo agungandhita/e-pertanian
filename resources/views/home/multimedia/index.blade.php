@@ -24,18 +24,9 @@
                     </p>
 
                     <div class="d-flex flex-wrap gap-3">
-                        <button class="btn btn-warning btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="video">
-                            <i class="fas fa-play me-2"></i>Video
-                        </button>
-                        <button class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="audio">
-                            <i class="fas fa-volume-up me-2"></i>Audio
-                        </button>
-                        <button class="btn btn-light btn-lg px-4 py-3 rounded-pill text-primary filter-btn" data-filter="gambar">
-                            <i class="fas fa-image me-2"></i>Gambar
-                        </button>
-                        <button class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill filter-btn" data-filter="infografis">
-                            <i class="fas fa-chart-bar me-2"></i>Infografis
-                        </button>
+                        <a href="#multimedia-grid" class="btn btn-warning btn-lg px-4 py-3 rounded-pill">
+                            <i class="fab fa-youtube me-2"></i>Lihat Semua Video
+                        </a>
                     </div>
                 </div>
             </div>
@@ -43,41 +34,14 @@
             <!-- Stats -->
             <div class="col-lg-6">
                 <div class="stats-grid p-4 p-lg-5">
-                    <div class="row g-4">
-                        <div class="col-6">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-8">
                             <div class="stat-card text-center">
                                 <div class="stat-icon bg-danger">
-                                    <i class="fas fa-play"></i>
+                                    <i class="fab fa-youtube"></i>
                                 </div>
-                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'video')->count() }}</h3>
-                                <p class="stat-label">Video</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-card text-center">
-                                <div class="stat-icon bg-info">
-                                    <i class="fas fa-volume-up"></i>
-                                </div>
-                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'audio')->count() }}</h3>
-                                <p class="stat-label">Audio</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-card text-center">
-                                <div class="stat-icon bg-success">
-                                    <i class="fas fa-image"></i>
-                                </div>
-                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'gambar')->count() }}</h3>
-                                <p class="stat-label">Gambar</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-card text-center">
-                                <div class="stat-icon bg-warning">
-                                    <i class="fas fa-chart-bar"></i>
-                                </div>
-                                <h3 class="stat-number">{{ $multimedias->where('jenis_media', 'infografis')->count() }}</h3>
-                                <p class="stat-label">Infografis</p>
+                                <h3 class="stat-number">{{ $multimedias->total() }}</h3>
+                                <p class="stat-label">Video YouTube</p>
                             </div>
                         </div>
                     </div>
@@ -104,21 +68,10 @@
                     </div>
                     <div class="content-body">
                         <div class="filter-buttons d-flex gap-2 flex-wrap justify-content-center">
-                            <input type="radio" class="btn-check" name="filter" id="semua" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" for="semua">
-                                <i class="fas fa-th-large me-2"></i>Semua Media
-                                <span class="badge bg-primary ms-2">{{ $multimedias->total() }}</span>
-                            </label>
-                            <input type="radio" class="btn-check" name="filter" id="video" autocomplete="off">
-                            <label class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold" for="video">
-                                <i class="fas fa-play me-2"></i>Video
-                                <span class="badge bg-danger ms-2">{{ $multimedias->where('jenis_media', 'video')->count() }}</span>
-                            </label>
-                            <input type="radio" class="btn-check" name="filter" id="gambar" autocomplete="off">
-                            <label class="btn btn-outline-success rounded-pill px-4 py-2 fw-semibold" for="gambar">
-                                <i class="fas fa-image me-2"></i>Gambar
-                                <span class="badge bg-success ms-2">{{ $multimedias->where('jenis_media', 'gambar')->count() }}</span>
-                            </label>
+                            <div class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                                <i class="fab fa-youtube me-2"></i>Semua Video YouTube
+                                <span class="badge bg-light text-primary ms-2">{{ $multimedias->total() }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,126 +82,42 @@
     @if($multimedias->count() > 0)
         <div class="row g-4" id="multimedia-grid">
             @foreach($multimedias as $multimedia)
-            <div class="col-xl-4 col-lg-6 col-md-6 multimedia-item" data-type="{{ $multimedia->jenis_media }}">
+            <div class="col-xl-4 col-lg-6 col-md-6 multimedia-item">
                 <div class="card h-100 border-0 shadow-lg multimedia-card rounded-4 overflow-hidden">
                     <!-- Media Preview -->
                     <div class="position-relative multimedia-preview">
-                        @if($multimedia->jenis_media == 'video')
-                            @if($multimedia->youtube_url)
-                                <div class="ratio ratio-16x9">
-                                    @php
-                                        $youtube_id = '';
-                                        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $multimedia->youtube_url, $matches)) {
-                                            $youtube_id = $matches[1];
-                                        }
-                                    @endphp
-                                    <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}"
-                                            title="{{ $multimedia->deskripsi }}"
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen
-                                            class="rounded-top">
-                                    </iframe>
-                                </div>
-                                <div class="position-absolute top-0 start-0 m-3">
-                                    <span class="badge bg-danger bg-gradient px-3 py-2 rounded-pill shadow">
-                                        <i class="fab fa-youtube me-2"></i>YouTube Video
-                                    </span>
-                                </div>
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="tooltip" title="Tonton di YouTube">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </button>
-                                </div>
-                            @elseif($multimedia->file_path)
-                                <div class="ratio ratio-16x9">
-                                    <video controls class="rounded-top" preload="metadata">
-                                        <source src="{{ asset('storage/' . $multimedia->file_path) }}" type="video/mp4">
-                                        Browser Anda tidak mendukung tag video.
-                                    </video>
-                                </div>
-                                <div class="position-absolute top-0 start-0 m-3">
-                                    <span class="badge bg-primary bg-gradient px-3 py-2 rounded-pill shadow">
-                                        <i class="fas fa-play me-2"></i>Video Lokal
-                                    </span>
-                                </div>
-                            @else
-                                <div class="d-flex align-items-center justify-content-center bg-gradient-secondary" style="height: 250px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                                    <div class="text-center text-white">
-                                        <i class="fas fa-video fa-4x opacity-75 mb-3"></i>
-                                        <p class="mb-0 fw-semibold">Video Media</p>
-                                    </div>
-                                </div>
-                            @endif
-                        @elseif($multimedia->jenis_media == 'gambar')
-                            <div class="ratio ratio-16x9 image-container">
-                                @if($multimedia->gambar)
-                                    <img src="{{ $multimedia->gambar_url }}"
-                                         class="card-img-top object-fit-cover hover-zoom"
-                                         alt="{{ $multimedia->deskripsi }}"
-                                         loading="lazy">
-                                @elseif($multimedia->file_path)
-                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}"
-                                         class="card-img-top object-fit-cover hover-zoom"
-                                         alt="{{ $multimedia->deskripsi }}"
-                                         loading="lazy">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-gradient-success" style="height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                        <div class="text-center text-white">
-                                            <i class="fas fa-image fa-4x opacity-75 mb-3"></i>
-                                            <p class="mb-0 fw-semibold">Gambar Media</p>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="image-overlay d-flex align-items-center justify-content-center">
-                                    <button class="btn btn-light btn-lg rounded-circle" data-bs-toggle="modal" data-bs-target="#imageModal{{ $multimedia->id }}">
-                                        <i class="fas fa-search-plus"></i>
-                                    </button>
-                                </div>
+                        @if($multimedia->youtube_url)
+                            <div class="ratio ratio-16x9">
+                                @php
+                                    $youtube_id = '';
+                                    if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $multimedia->youtube_url, $matches)) {
+                                        $youtube_id = $matches[1];
+                                    }
+                                @endphp
+                                <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}"
+                                        title="{{ $multimedia->deskripsi }}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        class="rounded-top">
+                                </iframe>
                             </div>
                             <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge bg-success bg-gradient px-3 py-2 rounded-pill shadow">
-                                    <i class="fas fa-image me-2"></i>Gambar
+                                <span class="badge bg-danger bg-gradient px-3 py-2 rounded-pill shadow">
+                                    <i class="fab fa-youtube me-2"></i>YouTube Video
                                 </span>
                             </div>
-                        @elseif($multimedia->jenis_media == 'infografis')
-                            <div class="ratio ratio-16x9 infografis-container">
-                                @if($multimedia->file_path)
-                                    <img src="{{ asset('storage/' . $multimedia->file_path) }}"
-                                         class="card-img-top object-fit-cover"
-                                         alt="{{ $multimedia->deskripsi }}"
-                                         loading="lazy">
-                                @else
-                                    <div class="d-flex align-items-center justify-content-center bg-gradient-warning" style="height: 250px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
-                                        <div class="text-center text-dark">
-                                            <i class="fas fa-chart-bar fa-4x opacity-75 mb-3"></i>
-                                            <p class="mb-0 fw-semibold">Infografis Media</p>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="infografis-overlay d-flex align-items-center justify-content-center">
-                                    <div class="text-center text-white">
-                                        <i class="fas fa-chart-bar fa-2x mb-2"></i>
-                                        <p class="mb-0 fw-semibold">Lihat Infografis</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge bg-warning bg-gradient px-3 py-2 rounded-pill shadow text-dark">
-                                    <i class="fas fa-chart-bar me-2"></i>Infografis
-                                </span>
+                            <div class="position-absolute top-0 end-0 m-3">
+                                <a href="{{ $multimedia->youtube_url }}" target="_blank" class="btn btn-light btn-sm rounded-circle" data-bs-toggle="tooltip" title="Tonton di YouTube">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
                             </div>
                         @else
                             <div class="d-flex align-items-center justify-content-center bg-gradient-secondary" style="height: 250px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                                 <div class="text-center text-white">
-                                    <i class="fas fa-file fa-4x opacity-75 mb-3"></i>
-                                    <p class="mb-0 fw-semibold">File Media</p>
+                                    <i class="fab fa-youtube fa-4x opacity-75 mb-3"></i>
+                                    <p class="mb-0 fw-semibold">Video YouTube</p>
                                 </div>
-                            </div>
-                            <div class="position-absolute top-0 start-0 m-3">
-                                <span class="badge bg-secondary bg-gradient px-3 py-2 rounded-pill shadow">
-                                    <i class="fas fa-file me-2"></i>File
-                                </span>
                             </div>
                         @endif
                     </div>
@@ -264,7 +133,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="{{ route('frontend.multimedia.show', $multimedia) }}"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
                                     <li><a class="dropdown-item" href="#" onclick="shareContent('{{ $multimedia->deskripsi }}', '{{ route('frontend.multimedia.show', $multimedia) }}')"><i class="fas fa-share me-2"></i>Bagikan</a></li>
-                                    @if($multimedia->jenis_media == 'video' && $multimedia->youtube_url)
+                                    @if($multimedia->youtube_url)
                                         <li><a class="dropdown-item" href="{{ $multimedia->youtube_url }}" target="_blank"><i class="fab fa-youtube me-2"></i>Buka di YouTube</a></li>
                                     @endif
                                 </ul>

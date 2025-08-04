@@ -21,11 +21,6 @@ class MultimediaController extends Controller
             $query->where('kategori_id', $request->kategori);
         }
 
-        // Filter berdasarkan jenis media jika ada
-        if ($request->has('jenis') && $request->jenis != '') {
-            $query->where('jenis_media', $request->jenis);
-        }
-
         $multimedias = $query->paginate(12);
         $kategoris = Kategori::all();
 

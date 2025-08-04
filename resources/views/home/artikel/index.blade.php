@@ -37,6 +37,13 @@
 
                     <!-- Article Content -->
                     <div class="card-body d-flex flex-column">
+                        @if($artikel->kategori)
+                            <div class="mb-2">
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-tag me-1"></i>{{ $artikel->kategori->nama }}
+                                </span>
+                            </div>
+                        @endif
                         <h5 class="card-title fw-bold mb-3">{{ $artikel->judul }}</h5>
                         <p class="card-text text-muted flex-grow-1">
                             {{ Str::limit($artikel->deskripsi, 120) }}

@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kategori_id')->constrained('kategoris', 'kategori_id')->onDelete('cascade');
             $table->text('deskripsi');
-            $table->enum('jenis_media', ['video', 'gambar']);
-            $table->string('file_path')->nullable();
             $table->string('youtube_url')->nullable();
             $table->timestamps();
         });

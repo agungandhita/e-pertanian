@@ -36,7 +36,7 @@
                                 </div>
                                 <h2 class="card-title fw-bold mb-3">{{ $berita->first()->judul }}</h2>
                                 <p class="card-text text-muted mb-4">
-                                    {{ Str::limit($berita->first()->deskripsi, 150) }}
+                                    {{ Str::limit($berita->first()->isi, 150) }}
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <small class="text-muted">
@@ -111,7 +111,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold mb-3">{{ $item->judul }}</h5>
                         <p class="card-text text-muted flex-grow-1">
-                            {{ Str::limit($item->deskripsi, 120) }}
+                            {{ Str::limit($item->isi, 120) }}
                         </p>
                         
                         <!-- News Meta -->

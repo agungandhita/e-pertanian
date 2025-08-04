@@ -22,22 +22,8 @@
                 <!-- Multimedia Header -->
                 <div class="card-header bg-white border-0 pt-4 px-4">
                     <div class="mb-3">
-                        <span class="badge
-                            @if($multimedia->jenis_media == 'video') bg-dark
-                            @elseif($multimedia->jenis_media == 'audio') bg-primary
-                            @else bg-info
-                            @endif mb-2">
-                            @if($multimedia->jenis_media == 'video')
-                                @if($multimedia->youtube_url)
-                                    <i class="fab fa-youtube me-1"></i>Video YouTube
-                                @else
-                                    <i class="fas fa-play me-1"></i>Video Edukasi
-                                @endif
-                            @elseif($multimedia->jenis_media == 'audio')
-                                <i class="fas fa-volume-up me-1"></i>Audio Edukasi
-                            @else
-                                <i class="fas fa-image me-1"></i>Gambar Edukasi
-                            @endif
+                        <span class="badge bg-danger mb-2">
+                            <i class="fab fa-youtube me-1"></i>Video YouTube
                         </span>
                     </div>
                     <h1 class="card-title h2 fw-bold text-dark mb-3">{{ $multimedia->deskripsi }}</h1>
@@ -53,8 +39,8 @@
                             <span>{{ $multimedia->created_at->diffForHumans() }}</span>
                         </div>
                         <div>
-                            <i class="fas fa-tag me-2"></i>
-                            <span>{{ ucfirst($multimedia->jenis_media) }}</span>
+                            <i class="fab fa-youtube me-2"></i>
+                            <span>Video YouTube</span>
                         </div>
                     </div>
                 </div>
@@ -62,53 +48,39 @@
                 <!-- Multimedia Content -->
                 <div class="px-4">
                     <div class="position-relative overflow-hidden rounded">
-                        @if($multimedia->jenis_media == 'video')
-                            @if($multimedia->youtube_url)
+                        @if($multimedia->youtube_url)
+                            @php
+                                $youtube_id = '';
+                                if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $multimedia->youtube_url, $matches)) {
+                                    $youtube_id = $matches[1];
+                                }
+                            @endphp
+                            @if($youtube_id)
                                 <div class="ratio ratio-16x9">
-                                    <iframe src="{{ str_replace('watch?v=', 'embed/', $multimedia->youtube_url) }}"
+                                    <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}"
                                             title="YouTube video"
                                             allowfullscreen
-                                            class="rounded">
+                                            class="rounded"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                                     </iframe>
                                 </div>
-                            @elseif($multimedia->file_path)
-                                <video class="w-100" controls style="max-height: 500px;">
-                                    <source src="{{ asset('storage/multimedia/files/' . $multimedia->file_path) }}" type="video/mp4">
-                                    Browser Anda tidak mendukung video.
-                                </video>
                             @else
                                 <div class="bg-dark d-flex align-items-center justify-content-center" style="height: 400px;">
                                     <div class="text-center text-white">
-                                        <i class="fas fa-video fa-4x mb-3"></i>
-                                        <p>Video tidak tersedia</p>
+                                        <i class="fas fa-exclamation-triangle fa-4x mb-3"></i>
+                                        <p>URL YouTube tidak valid</p>
+                                        <small class="text-muted">{{ $multimedia->youtube_url }}</small>
                                     </div>
                                 </div>
                             @endif
-                        @elseif($multimedia->jenis_media == 'audio')
-                            <div class="bg-primary text-white p-5 rounded text-center">
-                                <i class="fas fa-volume-up fa-4x mb-4"></i>
-                                <h4 class="mb-4">Audio agriedu</h4>
-                                @if($multimedia->file_path)
-                                    <audio controls class="w-100">
-                                        <source src="{{ asset('storage/multimedia/files/' . $multimedia->file_path) }}" type="audio/mpeg">
-                                        Browser Anda tidak mendukung audio.
-                                    </audio>
-                                @else
-                                    <p>Audio tidak tersedia</p>
-                                @endif
-                            </div>
                         @else
-                            @if($multimedia->gambar)
-                                <img src="{{ $multimedia->gambar_url }}" alt="{{ $multimedia->deskripsi }}"
-                                     class="img-fluid w-100 rounded" style="max-height: 500px; object-fit: cover;">
-                            @else
-                                <div class="bg-info d-flex align-items-center justify-content-center" style="height: 400px;">
-                                    <div class="text-center text-white">
-                                        <i class="fas fa-image fa-4x mb-3"></i>
-                                        <p>Gambar tidak tersedia</p>
-                                    </div>
+                            <div class="bg-dark d-flex align-items-center justify-content-center" style="height: 400px;">
+                                <div class="text-center text-white">
+                                    <i class="fab fa-youtube fa-4x mb-3"></i>
+                                    <p>Video YouTube tidak tersedia</p>
                                 </div>
-                            @endif
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -136,12 +108,7 @@
                             <button onclick="shareMultimedia()" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-share-alt me-1"></i>Bagikan
                             </button>
-                            @if($multimedia->file_path && in_array($multimedia->jenis_media, ['video', 'audio']))
-                                <a href="{{ asset('storage/multimedia/files/' . $multimedia->file_path) }}"
-                                   download class="btn btn-outline-success btn-sm">
-                                    <i class="fas fa-download me-1"></i>Unduh
-                                </a>
-                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -163,14 +130,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
-                    
+
                     @if(session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
-                    
+
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <i class="fas fa-exclamation-triangle me-2"></i>
@@ -182,7 +149,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
-                    
+
                     @auth
                         <!-- Comment Form -->
                         <form action="{{ route('comments.store', $multimedia->id) }}" method="POST" class="mb-4">
@@ -278,7 +245,7 @@
                                                                 <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item text-danger" 
+                                                                    <button type="submit" class="dropdown-item text-danger"
                                                                             onclick="return confirm('Yakin ingin menghapus komentar ini?')">
                                                                         <i class="fas fa-trash me-2"></i>Hapus
                                                                     </button>
@@ -346,7 +313,7 @@
                         </div>
                         <div class="col-6">
                             <h6 class="text-muted mb-1">Jenis Media</h6>
-                            <p class="mb-0 fw-bold">{{ ucfirst($multimedia->jenis_media) }}</p>
+                            <p class="mb-0 fw-bold">Video YouTube</p>
                         </div>
                     </div>
                 </div>
@@ -439,7 +406,7 @@ audio, video {
 function toggleEditForm(commentId) {
     const editForm = document.getElementById('edit-form-' + commentId);
     const commentContent = editForm.previousElementSibling;
-    
+
     if (editForm.classList.contains('d-none')) {
         editForm.classList.remove('d-none');
         commentContent.classList.add('d-none');

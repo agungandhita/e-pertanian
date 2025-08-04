@@ -26,41 +26,34 @@
                 <h5 class="mb-0">Preview Multimedia</h5>
             </div>
             <div class="card-body text-center">
-                @if($multimedia->youtube_url && $multimedia->jenis_media == 'video')
-                    <div class="ratio ratio-16x9">
-                        <iframe src="{{ str_replace('watch?v=', 'embed/', $multimedia->youtube_url) }}" 
-                                title="YouTube video" 
-                                allowfullscreen 
-                                class="rounded">
-                        </iframe>
-                    </div>
-                @elseif($multimedia->file_path)
-                    @if($multimedia->jenis_media == 'gambar' || $multimedia->jenis_media == 'infografis')
-                        <img src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}"
-                             alt="{{ $multimedia->deskripsi }}"
-                             class="img-fluid rounded"
-                             style="max-height: 400px;">
-                    @elseif($multimedia->jenis_media == 'video')
-                        <video controls class="w-100 rounded" style="max-height: 400px;">
-                            <source src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}" type="video/mp4">
-                            Browser Anda tidak mendukung video.
-                        </video>
-                    @elseif($multimedia->jenis_media == 'audio')
-                        <div class="bg-success rounded d-flex align-items-center justify-content-center text-white mb-3"
-                             style="height: 200px;">
-                            <i class="fas fa-volume-up fa-5x"></i>
+                @if($multimedia->youtube_url)
+                    @php
+                        $videoId = null;
+                        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $multimedia->youtube_url, $matches)) {
+                            $videoId = $matches[1];
+                        }
+                    @endphp
+                    @if($videoId)
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" 
+                                    title="YouTube video" 
+                                    allowfullscreen 
+                                    class="rounded">
+                            </iframe>
                         </div>
-                        <audio controls class="w-100">
-                            <source src="{{ asset('storage/multimedia/' . $multimedia->file_path) }}" type="audio/mpeg">
-                            Browser Anda tidak mendukung audio.
-                        </audio>
+                    @else
+                        <div class="bg-danger rounded d-flex align-items-center justify-content-center text-white"
+                             style="height: 200px;">
+                            <i class="fas fa-exclamation-triangle fa-5x"></i>
+                        </div>
+                        <p class="text-muted mt-3">URL YouTube tidak valid</p>
                     @endif
                 @else
                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center"
                          style="height: 200px;">
-                        <i class="fas fa-file fa-5x text-white"></i>
+                        <i class="fab fa-youtube fa-5x text-white"></i>
                     </div>
-                    <p class="text-muted mt-3">Tidak ada file multimedia</p>
+                    <p class="text-muted mt-3">Belum ada URL YouTube</p>
                 @endif
             </div>
         </div>
@@ -94,30 +87,7 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <td><strong>Jenis Media:</strong></td>
-                        <td>
-                            @if($multimedia->jenis_media == 'video')
-                                <span class="badge bg-danger">Video</span>
-                            @elseif($multimedia->jenis_media == 'audio')
-                                <span class="badge bg-success">Audio</span>
-                            @elseif($multimedia->jenis_media == 'gambar')
-                                <span class="badge bg-info">Gambar</span>
-                            @elseif($multimedia->jenis_media == 'infografis')
-                                <span class="badge bg-warning">Infografis</span>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>File:</strong></td>
-                        <td>
-                            @if($multimedia->file_path)
-                                <small class="text-muted">{{ $multimedia->file_path }}</small>
-                            @else
-                                <span class="text-muted">Tidak ada file</span>
-                            @endif
-                        </td>
-                    </tr>
+
                     @if($multimedia->youtube_url)
                     <tr>
                         <td><strong>YouTube URL:</strong></td>
@@ -161,11 +131,11 @@
                 </div>
                 <hr>
                 <div class="text-center">
-                    <h6 class="text-muted">Status File</h6>
-                    @if($multimedia->file_path && file_exists(storage_path('app/public/multimedia/' . $multimedia->file_path)))
-                        <span class="badge bg-success">File Tersedia</span>
+                    <h6 class="text-muted">Status URL</h6>
+                    @if($multimedia->youtube_url)
+                        <span class="badge bg-success">URL YouTube Tersedia</span>
                     @else
-                        <span class="badge bg-danger">File Tidak Ditemukan</span>
+                        <span class="badge bg-danger">URL YouTube Tidak Ada</span>
                     @endif
                 </div>
             </div>
@@ -181,10 +151,10 @@
                     <a href="{{ route('admin.multimedia.edit', $multimedia) }}" class="btn btn-warning">
                         <i class="fas fa-edit me-2"></i>Edit Multimedia
                     </a>
-                    @if($multimedia->file_path)
-                        <a href="{{ asset('storage/multimedia/' . $multimedia->file_path) }}" 
+                    @if($multimedia->youtube_url)
+                        <a href="{{ $multimedia->youtube_url }}" 
                            class="btn btn-info" target="_blank">
-                            <i class="fas fa-download me-2"></i>Download File
+                            <i class="fab fa-youtube me-2"></i>Lihat di YouTube
                         </a>
                     @endif
                     <button type="button" class="btn btn-danger" 

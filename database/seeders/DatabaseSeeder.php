@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            PersonalAccessTokenSeeder::class,
-            KategoriSeeder::class,
-            ArtikelSeeder::class,
-            BeritaSeeder::class,
-            MultimediaSeeder::class,
-            ModulSeeder::class,
+            // PersonalAccessTokenSeeder::class,
+            // KategoriSeeder::class,
+            // ArtikelSeeder::class,
+            // BeritaSeeder::class,
+            // MultimediaSeeder::class,
+            // ModulSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

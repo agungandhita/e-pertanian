@@ -34,10 +34,17 @@
                             <i class="fas fa-clock me-2"></i>
                             <span>{{ $artikel->created_at->diffForHumans() }}</span>
                         </div>
+                        @if($artikel->kategori)
+                        <div>
+                            <i class="fas fa-tag me-2"></i>
+                            <span>{{ $artikel->kategori->nama }}</span>
+                        </div>
+                        @else
                         <div>
                             <i class="fas fa-eye me-2"></i>
                             <span>Artikel Pertanian</span>
                         </div>
+                        @endif
                     </div>
                 </div>
 

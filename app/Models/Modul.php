@@ -29,7 +29,13 @@ class Modul extends Model
     // Accessor untuk mendapatkan URL file PDF
     public function getFilePdfUrlAttribute()
     {
-        return $this->file_path ? asset('storage/modul/files/' . $this->file_path) : null;
+        return $this->file_path ? asset('storage/modul/' . $this->file_path) : null;
+    }
+
+    // Accessor untuk file_pdf (alias untuk file_path)
+    public function getFilePdfAttribute()
+    {
+        return $this->file_path;
     }
 
     // Accessor untuk mendapatkan URL cover

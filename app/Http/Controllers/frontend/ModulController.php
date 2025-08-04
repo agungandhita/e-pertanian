@@ -41,10 +41,10 @@ class ModulController extends Controller
      */
     public function download(Modul $modul)
     {
-        $filePath = 'public/modul/' . $modul->file_pdf;
+        $filePath = 'public/modul/' . $modul->file_path;
         
         if (Storage::exists($filePath)) {
-            return Storage::download($filePath, $modul->file_pdf);
+            return Storage::download($filePath, $modul->file_path);
         }
         
         abort(404, 'File tidak ditemukan');
