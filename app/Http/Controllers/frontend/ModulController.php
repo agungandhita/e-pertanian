@@ -41,7 +41,7 @@ class ModulController extends Controller
      */
     public function download(Modul $modul)
     {
-        $filePath = 'public/modul/files/' . $modul->file_path;
+        $filePath = 'public/modul/' . $modul->file_path;
         
         if (Storage::exists($filePath)) {
             return Storage::download($filePath, $modul->file_path);

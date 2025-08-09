@@ -61,4 +61,36 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Relasi dengan Cart
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Relasi dengan Order
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Method untuk mendapatkan total item di keranjang
+     */
+    public function getCartItemsCountAttribute()
+    {
+        return $this->carts()->sum('quantity');
+    }
+
+    /**
+     * Method untuk mendapatkan total harga keranjang
+     */
+    public function getCartTotalAttribute()
+    {
+        return $this->carts()->with('product')->get()->sum('subtotal');
+    }
 }

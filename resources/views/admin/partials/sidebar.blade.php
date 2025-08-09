@@ -31,6 +31,21 @@
             </div>
         </div>
 
+        <!-- E-commerce Section -->
+        <div class="mb-3">
+            <h6 class="text-muted text-uppercase fw-bold mb-2 px-2" style="font-size: 0.75rem; letter-spacing: 0.5px;">Manajemen E-commerce</h6>
+            <div class="bg-light rounded-3 p-2">
+                <a href="{{ route('admin.products.index') }}" class="nav-link d-flex align-items-center py-2 px-2 rounded mb-1 text-decoration-none {{ request()->routeIs('admin.products.*') ? 'bg-primary text-white' : 'text-dark' }}">
+                    <i class="fas fa-box me-2" style="width: 16px;"></i>
+                    <span style="font-size: 0.9rem;">Kelola Produk</span>
+                </a>
+                <a href="{{ route('admin.orders.index') }}" class="nav-link d-flex align-items-center py-2 px-2 rounded text-decoration-none {{ request()->routeIs('admin.orders.*') ? 'bg-primary text-white' : 'text-dark' }}">
+                    <i class="fas fa-shopping-cart me-2" style="width: 16px;"></i>
+                    <span style="font-size: 0.9rem;">Kelola Pesanan</span>
+                </a>
+            </div>
+        </div>
+
         <!-- Content Section -->
         <div class="mb-3">
             <h6 class="text-muted text-uppercase fw-bold mb-2 px-2" style="font-size: 0.75rem; letter-spacing: 0.5px;">Manajemen Konten</h6>
