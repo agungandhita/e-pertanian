@@ -54,9 +54,15 @@ class Product extends Model
     }
 
     // Accessor untuk format harga
-    public function getFormattedHargaAttribute()
+    public function getFormattedPriceAttribute()
     {
         return 'Rp ' . number_format($this->harga, 0, ',', '.');
+    }
+
+    // Accessor untuk format harga per satuan
+    public function getFormattedPricePerUnitAttribute()
+    {
+        return 'Rp ' . number_format($this->harga, 0, ',', '.') . '/' . $this->satuan;
     }
 
     // Scope untuk produk aktif

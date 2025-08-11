@@ -61,7 +61,7 @@
                         <div class="row mt-4">
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-outline-danger" id="clear-cart">Kosongkan Keranjang</button>
-                                <a href="{{ route('products.index') }}" class="btn btn-outline-primary">Lanjut Belanja</a>
+                                <a href="{{ route('frontend.products.index') }}" class="btn btn-outline-primary">Lanjut Belanja</a>
                             </div>
                             <div class="col-md-6 text-right">
                                 <h4>Total: <span id="total-amount">Rp {{ number_format($total, 0, ',', '.') }}</span></h4>
@@ -77,7 +77,7 @@
                             <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
                             <h4>Keranjang Belanja Kosong</h4>
                             <p class="text-muted">Anda belum menambahkan produk apapun ke keranjang.</p>
-                            <a href="{{ route('products.index') }}" class="btn btn-primary">Mulai Belanja</a>
+                            <a href="{{ route('frontend.products.index') }}" class="btn btn-primary">Mulai Belanja</a>
                         </div>
                     </div>
                 </div>
@@ -95,9 +95,9 @@ $(document).ready(function() {
             url: '{{ route("frontend.cart.update", ":cart_id") }}'.replace(':cart_id', cartId),
             method: 'POST',
             data: {
-                cart_id: cartId,
                 quantity: quantity,
-                _token: '{{ csrf_token() }}'
+                _token: '{{ csrf_token() }}',
+                _method: 'PATCH'
             },
             success: function(response) {
                 if(response.success) {
@@ -174,8 +174,8 @@ $(document).ready(function() {
                 url: '{{ route("frontend.cart.destroy", ":cart_id") }}'.replace(':cart_id', cartId),
                 method: 'POST',
                 data: {
-                    cart_id: cartId,
-                    _token: '{{ csrf_token() }}'
+                    _token: '{{ csrf_token() }}',
+                    _method: 'DELETE'
                 },
                 success: function(response) {
                     if(response.success) {
@@ -210,7 +210,8 @@ $(document).ready(function() {
                 url: '{{ route("frontend.cart.clear") }}',
                 method: 'POST',
                 data: {
-                    _token: '{{ csrf_token() }}'
+                    _token: '{{ csrf_token() }}',
+                    _method: 'DELETE'
                 },
                 success: function(response) {
                     if(response.success) {

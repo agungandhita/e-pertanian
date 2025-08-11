@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Exports\OrdersExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -148,31 +150,5 @@ class OrderController extends Controller
 
         Alert::success('Berhasil', 'Pembayaran berhasil diverifikasi!');
         return back();
-    }
-
-    /**
-     * Download order report
-     */
-    public function report(Request $request)
-    {
-        $query = Order::with('user', 'orderItems.product');
-
-        // Filter berdasarkan tanggal
-        if ($request->filled('date_from')) {
-            $query->whereDate('created_at', '>=', $request->date_from);
-        }
-
-        if ($request->filled('date_to')) {
-            $query->whereDate('created_at', '<=', $request->date_to);
-        }
-
-        // Filter berdasarkan status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        $orders = $query->latest()->get();
-
-        return view('admin.orders.report', compact('orders'));
     }
 }

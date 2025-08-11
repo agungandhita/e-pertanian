@@ -149,19 +149,19 @@ $(document).ready(function() {
         const youtubeUrl = $('#youtube_url').val().trim();
         
         if (!kategoriId) {
-            alert('Silakan pilih kategori!');
+            alert('⚠️ Kategori Belum Dipilih!\n\nAnda belum memilih kategori untuk multimedia ini.\n\nSilakan pilih kategori yang sesuai sebelum menyimpan.');
             e.preventDefault();
             return;
         }
         
         if (!deskripsi) {
-            alert('Silakan isi deskripsi!');
+            alert('⚠️ Deskripsi Kosong!\n\nDeskripsi multimedia tidak boleh kosong.\n\nSilakan isi deskripsi yang menjelaskan konten multimedia ini.');
             e.preventDefault();
             return;
         }
         
         if (!youtubeUrl) {
-            alert('Silakan isi URL YouTube!');
+            alert('⚠️ URL YouTube Kosong!\n\nURL YouTube tidak boleh kosong untuk tipe video.\n\nSilakan masukkan URL YouTube yang valid (contoh: https://www.youtube.com/watch?v=...).');
             e.preventDefault();
             return;
         }

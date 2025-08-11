@@ -289,7 +289,7 @@ function shareNews() {
     } else {
         // Fallback: copy to clipboard
         navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Link berita telah disalin ke clipboard!');
+            alert('📋 Link Berhasil Disalin!\n\nLink berita ini telah disalin ke clipboard Anda.\n\nAnda dapat membagikannya dengan paste (Ctrl+V) di aplikasi lain.');
         });
     }
 }

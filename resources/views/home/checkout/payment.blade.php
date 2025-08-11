@@ -16,37 +16,6 @@
                         <p class="mb-0">Silakan lakukan pembayaran sesuai dengan metode yang Anda pilih dan upload bukti pembayaran.</p>
                     </div>
                     
-                    <!-- Detail Pembayaran -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0">Detail Pembayaran</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Metode Pembayaran:</strong>
-                                    @if($order->payment_method == 'dana')
-                                        <p>DANA</p>
-                                        <p><strong>Nomor DANA:</strong> 0812-3456-7890<br>
-                                        <strong>Atas Nama:</strong> Toko Pertanian</p>
-                                    @elseif($order->payment_method == 'mandiri')
-                                        <p>Bank Mandiri</p>
-                                        <p><strong>No. Rekening:</strong> 1234567890<br>
-                                        <strong>Atas Nama:</strong> Toko Pertanian</p>
-                                    @elseif($order->payment_method == 'bri')
-                                        <p>Bank BRI</p>
-                                        <p><strong>No. Rekening:</strong> 0987654321<br>
-                                        <strong>Atas Nama:</strong> Toko Pertanian</p>
-                                    @endif
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Total Pembayaran:</strong>
-                                    <h4 class="text-success">{{ $order->formatted_total_amount }}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- Upload Bukti Pembayaran -->
                     <div class="card mb-4">
                         <div class="card-header">
@@ -58,10 +27,51 @@
                                     <i class="fas fa-check-circle"></i> Bukti pembayaran sudah diupload. Menunggu verifikasi admin.
                                     <br><a href="{{ $order->payment_proof_url }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">Lihat Bukti Pembayaran</a>
                                 </div>
+                                
+                                <!-- Detail Pembayaran yang sudah dipilih -->
+                                <div class="card mt-3">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Detail Pembayaran</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <strong>Metode Pembayaran:</strong>
+                                                <p class="mb-0">{{ strtoupper($order->payment_method) }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <strong>Total Pembayaran:</strong>
+                                                <h5 class="text-success mb-0">{{ $order->formatted_total_amount }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @else
                                 <form action="{{ route('frontend.orders.processPayment', $order->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                    
+                                    <!-- Pilih Metode Pembayaran -->
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Pilih Metode Pembayaran <span class="text-danger">*</span></label>
+                                        @foreach($paymentMethods as $key => $method)
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input @error('payment_method') is-invalid @enderror" type="radio" name="payment_method" id="{{ $key }}" value="{{ $key }}" required>
+                                                <label class="form-check-label" for="{{ $key }}">
+                                                    <strong>{{ $method['name'] }}</strong><br>
+                                                    <small class="text-muted">{{ $method['account'] }} ({{ $method['account_name'] }})</small>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        @error('payment_method')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <!-- Total Pembayaran -->
+                                    <div class="alert alert-info mb-3">
+                                        <strong>Total Pembayaran: {{ $order->formatted_total_amount }}</strong>
+                                    </div>
                                     
                                     <div class="form-group mb-3">
                                         <label for="payment_proof">Pilih File Bukti Pembayaran <span class="text-danger">*</span></label>
@@ -71,7 +81,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    
+
                                     <button type="submit" class="btn btn-primary">Upload Bukti Pembayaran</button>
                                 </form>
                             @endif
@@ -131,7 +141,7 @@
                     
                     <div class="text-center">
                         <a href="{{ route('frontend.orders.index') }}" class="btn btn-outline-primary">Lihat Semua Pesanan</a>
-                        <a href="{{ route('products.index') }}" class="btn btn-primary">Lanjut Belanja</a>
+                        <a href="{{ route('frontend.products.index') }}" class="btn btn-primary">Lanjut Belanja</a>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,6 @@
     <div class="row">
         <div class="col-12">
             <h2 class="mb-4">Pesanan Saya</h2>
-            
             <!-- Filter Status -->
             <div class="card mb-4">
                 <div class="card-body">
@@ -32,7 +31,7 @@
                     </form>
                 </div>
             </div>
-            
+
             @if($orders->count() > 0)
                 @foreach($orders as $order)
                     <div class="card mb-3">
@@ -68,7 +67,7 @@
                                     <h5 class="text-success">{{ $order->formatted_total_amount }}</h5>
                                     <div class="btn-group-vertical" role="group">
                                         <a href="{{ route('frontend.orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm">Detail</a>
-                                        
+
                                         @if($order->status == 'pending')
                                             <form action="{{ route('frontend.orders.cancel', $order->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
                                                 @csrf
@@ -76,7 +75,7 @@
                                                 <button type="submit" class="btn btn-outline-danger btn-sm">Batalkan</button>
                                             </form>
                                         @endif
-                                        
+
                                         @if($order->status == 'shipped')
                                              <form action="{{ route('frontend.orders.confirmDelivery', $order->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Konfirmasi bahwa pesanan sudah diterima?')">
                                                  @csrf
@@ -84,30 +83,30 @@
                                                  <button type="submit" class="btn btn-outline-success btn-sm">Konfirmasi Terima</button>
                                              </form>
                                          @endif
-                                        
+
                                         @if(in_array($order->status, ['delivered', 'paid', 'processing', 'shipped']))
                                             <a href="{{ route('frontend.orders.invoice', $order->id) }}" class="btn btn-outline-secondary btn-sm" target="_blank">Download Invoice</a>
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                            
+
                             @if($order->status == 'pending' && !$order->payment_proof)
                                 <div class="alert alert-warning mt-3">
-                                    <i class="fas fa-exclamation-triangle"></i> 
+                                    <i class="fas fa-exclamation-triangle"></i>
                                     Silakan upload bukti pembayaran untuk pesanan ini.
                                     <a href="{{ route('frontend.orders.payment', $order->id) }}" class="btn btn-warning btn-sm ml-2">Upload Bukti</a>
                                 </div>
                             @elseif($order->status == 'pending' && $order->payment_proof)
                                 <div class="alert alert-info mt-3">
-                                    <i class="fas fa-clock"></i> 
+                                    <i class="fas fa-clock"></i>
                                     Bukti pembayaran sudah diupload. Menunggu verifikasi admin.
                                 </div>
                             @endif
                         </div>
                     </div>
                 @endforeach
-                
+
                 <!-- Pagination -->
                 @if($orders->hasPages())
                     <div class="d-flex justify-content-center mt-4">
@@ -121,7 +120,7 @@
                             <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
                             <h4>Belum Ada Pesanan</h4>
                             <p class="text-muted">Anda belum memiliki pesanan apapun.</p>
-                            <a href="{{ route('products.index') }}" class="btn btn-primary">Mulai Belanja</a>
+                            <a href="{{ route('frontend.products.index') }}" class="btn btn-primary">Mulai Belanja</a>
                         </div>
                     </div>
                 </div>

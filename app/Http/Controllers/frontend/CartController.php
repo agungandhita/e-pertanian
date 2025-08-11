@@ -115,6 +115,21 @@ class CartController extends Controller
 
         $cart->delete();
 
+        // Calculate new total and cart count
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+        $total = $cartItems->sum('subtotal');
+        $cartCount = $cartItems->sum('quantity');
+
+        // Check if request is AJAX
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Item berhasil dihapus dari keranjang!',
+                'formatted_total' => number_format($total, 0, ',', '.'),
+                'cart_count' => $cartCount
+            ]);
+        }
+
         Alert::success('Berhasil', 'Item berhasil dihapus dari keranjang!');
         return back();
     }
@@ -125,6 +140,16 @@ class CartController extends Controller
     public function clear()
     {
         Cart::where('user_id', Auth::id())->delete();
+
+        // Check if request is AJAX
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Keranjang berhasil dikosongkan!',
+                'formatted_total' => number_format(0, 0, ',', '.'),
+                'cart_count' => 0
+            ]);
+        }
 
         Alert::success('Berhasil', 'Keranjang berhasil dikosongkan!');
         return back();

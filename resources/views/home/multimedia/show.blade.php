@@ -427,7 +427,7 @@ function shareMultimedia() {
     } else {
         // Fallback: copy to clipboard
         navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Link multimedia telah disalin ke clipboard!');
+            alert('📋 Link Berhasil Disalin!\n\nLink multimedia ini telah disalin ke clipboard Anda.\n\nAnda dapat membagikannya dengan paste (Ctrl+V) di aplikasi lain.');
         });
     }
 }

@@ -50,9 +50,14 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admin.orders.report') }}" class="btn btn-success">
-                                <i class="fas fa-file-excel"></i> Laporan
-                            </a>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('admin.orders.exportExcel', request()->query()) }}" class="btn btn-success">
+                                    <i class="fas fa-file-excel"></i> Download Excel
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exportModal">
+                                    <i class="fas fa-filter"></i> Filter Export
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -262,6 +267,54 @@
                     @endif
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exportModalLabel">Filter Export Excel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.orders.exportExcel') }}" method="GET">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="export_date_from" class="form-label">Tanggal Dari</label>
+                                <input type="date" class="form-control" id="export_date_from" name="date_from" value="{{ request('date_from') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="export_date_to" class="form-label">Tanggal Sampai</label>
+                                <input type="date" class="form-control" id="export_date_to" name="date_to" value="{{ request('date_to') }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="export_status" class="form-label">Status</label>
+                        <select name="status" id="export_status" class="form-select">
+                            <option value="">Semua Status</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="paid" {{ request('status') == 'paid' ? 'selected' : '' }}>Dibayar</option>
+                            <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Diproses</option>
+                            <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Dikirim</option>
+                            <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Diterima</option>
+                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i> Download Excel
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

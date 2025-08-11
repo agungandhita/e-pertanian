@@ -350,7 +350,7 @@ function shareModul() {
     } else {
         // Fallback: copy to clipboard
         navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Link modul telah disalin ke clipboard!');
+            alert('📋 Link Berhasil Disalin!\n\nLink modul ini telah disalin ke clipboard Anda.\n\nAnda dapat membagikannya dengan paste (Ctrl+V) di aplikasi lain.');
         });
     }
 }
@@ -360,7 +360,7 @@ function openPDFViewer() {
         const modal = new bootstrap.Modal(document.getElementById('pdfViewerModal'));
         modal.show();
     @else
-        alert('File PDF tidak tersedia untuk pratinjau.');
+        alert('📄 File Tidak Tersedia!\n\nMaaf, file PDF untuk modul ini tidak tersedia untuk pratinjau.\n\nSilakan download file untuk melihat konten lengkap atau hubungi admin jika ada masalah.');
     @endif
 }
 </script>

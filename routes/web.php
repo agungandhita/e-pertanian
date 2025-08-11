@@ -78,7 +78,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('orders', AdminOrderController::class)->only(['index', 'show']);
     Route::patch('orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::patch('orders/{order}/verify-payment', [AdminOrderController::class, 'verifyPayment'])->name('orders.verifyPayment');
-    Route::get('orders/report', [AdminOrderController::class, 'report'])->name('orders.report');
+    Route::get('orders/export-excel', [AdminOrderController::class, 'exportExcel'])->name('orders.exportExcel');
+    
+    // Laporan Routes
+    Route::get('laporan', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::get('laporan/export', [\App\Http\Controllers\Admin\LaporanController::class, 'export'])->name('admin.laporan.export');
 });
 
 // Frontend Routes

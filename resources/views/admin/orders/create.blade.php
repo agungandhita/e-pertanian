@@ -248,7 +248,7 @@ function updateSubtotal(event) {
         // Validate quantity against stock
         if (quantity > stock) {
             quantityInput.value = stock;
-            alert(`Jumlah tidak boleh melebihi stok yang tersedia (${stock} ${unit})`);
+            alert(`⚠️ Peringatan Stok!\n\nJumlah yang Anda masukkan melebihi stok yang tersedia.\n\nStok tersedia: ${stock} ${unit}\nJumlah akan disesuaikan ke maksimal stok yang ada.`);
         }
         
         // Calculate subtotal
@@ -286,7 +286,7 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
     
     if (productItems.length === 0) {
         e.preventDefault();
-        alert('Minimal harus ada 1 produk dalam pesanan');
+        alert('❌ Pesanan Tidak Valid!\n\nAnda belum menambahkan produk apapun ke dalam pesanan.\n\nSilakan tambahkan minimal 1 produk untuk melanjutkan.');
         return;
     }
     
@@ -303,7 +303,7 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
     
     if (!isValid) {
         e.preventDefault();
-        alert('Pastikan semua produk telah dipilih dan jumlahnya valid');
+        alert('❌ Data Pesanan Tidak Lengkap!\n\nMohon periksa kembali:\n• Pastikan semua produk telah dipilih\n• Pastikan jumlah produk sudah diisi dengan benar\n• Jumlah harus lebih dari 0\n\nSilakan lengkapi data sebelum menyimpan pesanan.');
     }
 });
 

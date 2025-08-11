@@ -46,12 +46,12 @@
                                                 <tr>
                                                     <td class="fw-bold">Status:</td>
                                                     <td>
-                                                        <span class="badge bg-{{ 
-                                                            $order->status == 'pending' ? 'warning' : 
-                                                            ($order->status == 'paid' ? 'info' : 
-                                                            ($order->status == 'processing' ? 'primary' : 
-                                                            ($order->status == 'shipped' ? 'secondary' : 
-                                                            ($order->status == 'delivered' ? 'success' : 
+                                                        <span class="badge bg-{{
+                                                            $order->status == 'pending' ? 'warning' :
+                                                            ($order->status == 'paid' ? 'info' :
+                                                            ($order->status == 'processing' ? 'primary' :
+                                                            ($order->status == 'shipped' ? 'secondary' :
+                                                            ($order->status == 'delivered' ? 'success' :
                                                             ($order->status == 'cancelled' ? 'danger' : 'secondary')))))
                                                         }} fs-6">
                                                             @if($order->status == 'pending')
@@ -171,12 +171,12 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             @if($item->product->gambar)
-                                                                <img src="{{ asset('storage/' . $item->product->gambar) }}" 
-                                                                     alt="{{ $item->product->nama }}" 
-                                                                     class="img-thumbnail me-3" 
+                                                                <img src="{{ asset('storage/products/' . $item->product->gambar) }}"
+                                                                     alt="{{ $item->product->nama }}"
+                                                                     class="img-thumbnail me-3"
                                                                      style="width: 50px; height: 50px; object-fit: cover;">
                                                             @else
-                                                                <div class="bg-light d-flex align-items-center justify-content-center me-3" 
+                                                                <div class="bg-light d-flex align-items-center justify-content-center me-3"
                                                                      style="width: 50px; height: 50px; border-radius: 4px;">
                                                                     <i class="fas fa-image text-muted"></i>
                                                                 </div>
@@ -227,7 +227,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        
+
                                         @if($order->status == 'paid')
                                             <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}" style="display: inline;">
                                                 @csrf
@@ -238,7 +238,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        
+
                                         @if($order->status == 'processing')
                                             <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}" style="display: inline;">
                                                 @csrf
@@ -249,7 +249,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        
+
                                         @if($order->status == 'shipped')
                                             <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}" style="display: inline;">
                                                 @csrf
@@ -260,9 +260,9 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        
 
-                                        
+
+
                                         <a href="{{ route('frontend.orders.invoice', $order) }}" class="btn btn-outline-primary" target="_blank">
                                             <i class="fas fa-file-pdf me-2"></i>Cetak Invoice
                                         </a>
@@ -286,7 +286,7 @@
                                                 <small>{{ $order->created_at->format('d M Y, H:i') }}</small>
                                             </div>
                                         </div>
-                                        
+
                                         @if(in_array($order->status, ['paid', 'processing', 'shipped', 'delivered']))
                                         <div class="timeline-item {{ $order->status == 'paid' ? 'active' : 'completed' }}">
                                             <div class="timeline-marker"></div>
@@ -296,7 +296,7 @@
                                             </div>
                                         </div>
                                         @endif
-                                        
+
                                         @if(in_array($order->status, ['processing', 'shipped', 'delivered']))
                                         <div class="timeline-item {{ $order->status == 'processing' ? 'active' : 'completed' }}">
                                             <div class="timeline-marker"></div>
@@ -306,7 +306,7 @@
                                             </div>
                                         </div>
                                         @endif
-                                        
+
                                         @if(in_array($order->status, ['shipped', 'delivered']))
                                         <div class="timeline-item {{ $order->status == 'shipped' ? 'active' : 'completed' }}">
                                             <div class="timeline-marker"></div>
@@ -316,7 +316,7 @@
                                             </div>
                                         </div>
                                         @endif
-                                        
+
                                         @if($order->status == 'delivered')
                                         <div class="timeline-item completed">
                                             <div class="timeline-marker"></div>
@@ -339,14 +339,14 @@
                                     </h5>
                                 </div>
                                 <div class="card-body text-center">
-                                    <img src="{{ asset('storage/' . $order->payment_proof) }}" 
-                                         alt="Bukti Pembayaran" 
-                                         class="img-fluid rounded" 
+                                    <img src="{{ $order->payment_proof_url }}"
+                                         alt="Bukti Pembayaran"
+                                         class="img-fluid rounded"
                                          style="max-height: 300px; cursor: pointer;"
                                          onclick="showImageModal(this.src)">
                                     <div class="mt-3">
-                                        <a href="{{ asset('storage/' . $order->payment_proof) }}" 
-                                           class="btn btn-sm btn-outline-primary" 
+                                        <a href="{{ $order->payment_proof_url }}"
+                                           class="btn btn-sm btn-outline-primary"
                                            target="_blank">
                                             <i class="fas fa-external-link-alt me-2"></i>Lihat Full Size
                                         </a>

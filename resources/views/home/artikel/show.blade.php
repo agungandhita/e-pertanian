@@ -210,7 +210,7 @@ function shareArticle() {
     } else {
         // Fallback: copy to clipboard
         navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Link artikel telah disalin ke clipboard!');
+            alert('📋 Link Berhasil Disalin!\n\nLink artikel ini telah disalin ke clipboard Anda.\n\nAnda dapat membagikannya dengan paste (Ctrl+V) di aplikasi lain.');
         });
     }
 }

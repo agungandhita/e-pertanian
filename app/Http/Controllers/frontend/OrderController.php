@@ -111,6 +111,6 @@ class OrderController extends Controller
 
         $order->load('orderItems.product', 'user');
 
-        return view('frontend.orders.invoice', compact('order'));
+        return view('home.orders.invoice', compact('order'));
     }
 }

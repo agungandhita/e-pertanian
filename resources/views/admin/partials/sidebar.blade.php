@@ -39,9 +39,13 @@
                     <i class="fas fa-box me-2" style="width: 16px;"></i>
                     <span style="font-size: 0.9rem;">Kelola Produk</span>
                 </a>
-                <a href="{{ route('admin.orders.index') }}" class="nav-link d-flex align-items-center py-2 px-2 rounded text-decoration-none {{ request()->routeIs('admin.orders.*') ? 'bg-primary text-white' : 'text-dark' }}">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link d-flex align-items-center py-2 px-2 rounded mb-1 text-decoration-none {{ request()->routeIs('admin.orders.*') ? 'bg-primary text-white' : 'text-dark' }}">
                     <i class="fas fa-shopping-cart me-2" style="width: 16px;"></i>
                     <span style="font-size: 0.9rem;">Kelola Pesanan</span>
+                </a>
+                <a href="{{ route('admin.admin.laporan.index') }}" class="nav-link d-flex align-items-center py-2 px-2 rounded text-decoration-none {{ request()->routeIs('admin.admin.laporan.*') ? 'bg-primary text-white' : 'text-dark' }}">
+                    <i class="fas fa-chart-bar me-2" style="width: 16px;"></i>
+                    <span style="font-size: 0.9rem;">Laporan Pendapatan</span>
                 </a>
             </div>
         </div>
